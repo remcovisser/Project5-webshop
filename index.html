@@ -1,0 +1,70 @@
+<html>
+
+    <head>
+        <title>Index</title>
+    </head>
+
+    <body>
+        <p>dit is de body</p>
+        <div id="result" style="color:red"></div>
+    </body>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+<script>
+
+  var urll = 'http://localhost:8080/users';
+  var url = 'http://95.85.32.165:8080/users';
+
+
+
+/**
+ * Actual demo
+ */
+
+var demo = new Vue({
+  el: '#demo',
+
+  data: {
+    branches: ['master', 'dev'],
+    currentBranch: '',
+    commits: null
+  },
+
+  created: function () {
+    this.fetchData()
+  },
+
+  watch: {
+    currentBranch: 'fetchData'
+  },
+
+  filters: {
+    truncate: function (v) {
+      var newline = v.indexOf('\n')
+      return newline > 0 ? v.slice(0, newline) : v
+    },
+    formatDate: function (v) {
+      return v.replace(/T|Z/g, ' ')
+    }
+  },
+
+  methods: {
+    fetchData: function () {
+      var xhr = new XMLHttpRequest()
+      var self = this
+      xhr.open('GET', url + self.currentBranch)
+      xhr.onload = function () {
+        self.commits = JSON.parse(xhr.responseText)
+        console.log(self.commits[0].username)
+      }
+      xhr.send()
+    }
+  }
+})
+
+
+</script>
+</html>
