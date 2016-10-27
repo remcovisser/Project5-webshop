@@ -10,8 +10,16 @@
     </head>
 
     <body>
-        <div id="demo">
+      <ul>
+        <div id="demo" v-for="val in values">
+              <li>{{val.username}}</li>
+              <ul>
+                <li>{{val.password}}</li>
+                <li>{{val.email}}</li>
+                <li>{{val.date_of_birth}}</li>
+              </ul>
         </div>
+      </ul>
     </body>
 </html>
 
@@ -39,5 +47,4 @@ var demo = new Vue({
 
 demo.fetchData();
 console.log(demo);
-console.log(demo.$data);
 </script>
