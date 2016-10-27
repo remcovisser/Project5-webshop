@@ -1,70 +1,43 @@
 <html>
 
     <head>
+      <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+      <META HTTP-EQUIV="Expires" CONTENT="-1">
         <title>Index</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     </head>
 
     <body>
-        <p>dit is de body</p>
-        <div id="result" style="color:red"></div>
+        <div id="demo">
+        </div>
     </body>
+</html>
 
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
 <script>
-
-  var urll = 'http://localhost:8080/users';
-  var url = 'http://95.85.32.165:8080/users';
-
-
-
-/**
- * Actual demo
- */
+var local = 'http://localhost:8080/users';
+var live  = 'http://95.85.32.165:8080/users';
 
 var demo = new Vue({
   el: '#demo',
-
-  data: {
-    branches: ['master', 'dev'],
-    currentBranch: '',
-    commits: null
+  data : {
+    values : null
   },
-
-  created: function () {
-    this.fetchData()
-  },
-
-  watch: {
-    currentBranch: 'fetchData'
-  },
-
-  filters: {
-    truncate: function (v) {
-      var newline = v.indexOf('\n')
-      return newline > 0 ? v.slice(0, newline) : v
-    },
-    formatDate: function (v) {
-      return v.replace(/T|Z/g, ' ')
-    }
-  },
-
   methods: {
     fetchData: function () {
       var xhr = new XMLHttpRequest()
       var self = this
-      xhr.open('GET', url + self.currentBranch)
+      xhr.open('GET', local)
       xhr.onload = function () {
-        self.commits = JSON.parse(xhr.responseText)
-        console.log(self.commits[0].username)
+        self.values = JSON.parse(xhr.responseText)
       }
       xhr.send()
     }
   }
 })
 
-
+demo.fetchData();
+console.log(demo);
+console.log(demo.$data);
 </script>
-</html>
