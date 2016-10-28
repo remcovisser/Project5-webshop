@@ -31,11 +31,13 @@ var demo = new Vue({
   },
   methods: {
     saveData: function () {
+        // Place them in variables for the form checks
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
         var email    = document.getElementById('email').value;
         var date     = document.getElementById('date').value;
 
+        // Place the data in an object to convert to a json string
         var values = {
             username : username,
             password : password,
@@ -43,17 +45,13 @@ var demo = new Vue({
             date : date
         };
 
+        // Convert object to jsonstring
         values = JSON.stringify(values);
-
-        var data = new FormData();
-        data.append('jsonString', values);
-
+        // HTTP post request
         var xhr = new XMLHttpRequest();
         xhr.open('POST', local, true);
-        xhr.onload = function () {
-            console.log("Hallo");
-        }
-        xhr.send(data);
+        // Send our values
+        xhr.send(values);
     }
   }
 })
