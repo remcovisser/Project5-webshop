@@ -45,7 +45,7 @@ var demo = new Vue({
     },
     deleteData: function (thisEl) {
       var id = thisEl.val.user_id;
-      var localDelete = 'http://localhost:8080/users/'+id+'/delete';
+      var localDelete = 'http://localhost:8080/users/'+id+;
       // HTTP post request
       var xhr = new XMLHttpRequest();
       xhr.open('DELETE', localDelete);
