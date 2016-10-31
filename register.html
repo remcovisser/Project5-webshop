@@ -37,21 +37,39 @@ var demo = new Vue({
         var email    = document.getElementById('email').value;
         var date     = document.getElementById('date').value;
 
-        // Place the data in an object to convert to a json string
-        var values = {
-            username : username,
-            password : password,
-            email : email,
-            date : date
-        };
+        if(username == "" || password == "" || email == "" || date == ""){
+            console.log("Een veld is leeg.");
+        }
+        else {
+            var xhrExist = new XMLHttpRequest();
+            xhrExist.open('GET', 'http://localhost:8080/users/'+username+'/find');
+            xhrExist.onload = function () {
+                // Response text is empty or an object..
+                var exists = JSON.parse(xhrExist.responseText);
 
-        // Convert object to jsonstring
-        values = JSON.stringify(values);
-        // HTTP post request
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', local, true);
-        // Send our values
-        xhr.send(values);
+                if(exists[0]){
+                    console.log("Bestaat al.");
+                }
+                else {
+                    // Place the data in an object to convert to a json string
+                    var values = {
+                        username : username,
+                        password : password,
+                        email : email,
+                        date : date
+                    };
+
+                    // Convert object to jsonstring
+                    values = JSON.stringify(values);
+                    // HTTP post request
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', local);
+                    // Send our values
+                    xhr.send(values);
+                }
+            }
+            xhrExist.send();   
+        }
     }
   }
 })
