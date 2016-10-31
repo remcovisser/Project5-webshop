@@ -17,6 +17,7 @@
                 <li>{{val.password}}</li>
                 <li>{{val.email}}</li>
                 <li>{{val.date_of_birth}}</li>
+                <li><button data-userid="{{val.id}}" name="edit" v-on:click="editData(this)">Aanpassen</button>
                 <li><button data-userid="{{val.id}}" name="delete" v-on:click="deleteData(this)">Verwijderen</button>
               </ul>
         </div>
@@ -25,8 +26,8 @@
 </html>
 
 <script>
+
 var local = 'http://localhost:8080/users';
-var live  = 'http://95.85.32.165:8080/users';
 
 var demo = new Vue({
   el: '#demo',
@@ -45,12 +46,17 @@ var demo = new Vue({
     },
     deleteData: function (thisEl) {
       var id = thisEl.val.user_id;
-      var localDelete = 'http://localhost:8080/users/'+id+;
+      var localDelete = 'http://localhost:8080/users/'+id;
       // HTTP post request
       var xhr = new XMLHttpRequest();
       xhr.open('DELETE', localDelete);
       // Send our values
       xhr.send();
+    },
+    editData: function (thisEl) {
+      var id = thisEl.val.user_id;
+      var localEdit = 'http://localhost:8080/users/'+id;
+      window.location.href = localEdit;
     }
   }
 })
