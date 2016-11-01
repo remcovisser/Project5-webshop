@@ -1,0 +1,35 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background-color: #666;
+  background-blend-mode: hard-light;
+  font-size: 10pt;
+}
+
+.navbar {
+    border-radius: 0px !important;
+}
+
+#content {
+  width: 80%;
+  background-color: #fff;
+  border: 1px solid #e7e7e7 !important;
+  margin: 0 auto;
+  min-height: 500px;
+}
+
+footer {
+  height: 100px;
+  width: 100%;
+  margin-top: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #e7e7e7 !important;
+}
+
+footer  p {
+  text-align: center;
+  margin-top: 40px;  
+}
