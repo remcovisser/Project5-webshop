@@ -7,12 +7,21 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     </head>
-
+    <script>
+        // check if logged in..
+        var logged = document.cookie;
+        if(logged != "") {
+            var parts = (logged.split("user="))[1];
+            var values = JSON.parse(parts);
+        }
+    </script>
     <body>
         <div id="demo">
             <input type="text" id="username" placeholder="username" />
             <input type="password" id="password" placeholder="password" />
             <button v-on:click="login" name="login">Login</button>
+            <br/><br/>
+            <button v-on:click="logout" name="logout">Logout</button>
         </div>
     </body>
 </html>
@@ -25,6 +34,9 @@ var demo = new Vue({
     values : null
   },
   methods: {
+    logout: function() {
+        document.cookie = "user=; Max-Age=0";
+    },
     login: function () {
         // Place them in variables for the form checks
         var username = document.getElementById('username').value;
@@ -36,7 +48,6 @@ var demo = new Vue({
         else {
             var xhrExist = new XMLHttpRequest();
             password = md5(password);
-            console.log(password);
             xhrExist.open('GET', 'http://localhost:8080/users/'+username+'/'+password);
             xhrExist.onload = function () {
                 // Response text is empty or an object..
@@ -45,14 +56,13 @@ var demo = new Vue({
                 if(exists[0]){
                     // jsonstring for the data in the cookie
                     var d = exists[0];
-                    var user_data = JSON.stringify({ user_id: d.user_id, username : d.username, email : d.email, admin : d.admin, date : d.date_of_birth });
+                    var user_data = JSON.stringify({ user_id: d.user_id, username : d.username, email : d.email, date : d.date_of_birth });
                     // set expire date (1 day)
                     var d = new Date();
                     d.setTime(d.getTime() + (1*24*60*60*1000));
                     var expires = ";expires="+ d.toUTCString();
                     // set cookie
                     document.cookie = "user="+user_data+expires+";";
-                    console.log(document.cookie);
                 }
                 else {
                     console.log("Bestaat niet.");
@@ -63,6 +73,4 @@ var demo = new Vue({
     }
   }
 })
-
-console.log(document.cookie);
 </script>
