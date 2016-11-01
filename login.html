@@ -1,8 +1,6 @@
 <html>
 
     <head>
-      <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-      <META HTTP-EQUIV="Expires" CONTENT="-1">
         <title>Index</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
         <script src="includes/js/md5.js"></script>
@@ -14,16 +12,12 @@
         <div id="demo">
             <input type="text" id="username" placeholder="username" />
             <input type="password" id="password" placeholder="password" />
-            <input type="email" id="email" placeholder="email"/>
-            <input type="text" id="date" placeholder="date"/>
-            <button v-on:click="saveData" name="save">Registreren</button>
+            <button v-on:click="login" name="login">Login</button>
         </div>
     </body>
 </html>
 
 <script>
-var local = 'http://localhost:8080/users/create';
-var live  = 'http://95.85.32.165:8080/users';
 
 var demo = new Vue({
   el: '#demo',
@@ -31,49 +25,44 @@ var demo = new Vue({
     values : null
   },
   methods: {
-    saveData: function () {
+    login: function () {
         // Place them in variables for the form checks
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
-        var email    = document.getElementById('email').value;
-        var date     = document.getElementById('date').value;
 
-        if(username == "" || password == "" || email == "" || date == ""){
+        if(username == "" || password == ""){
             console.log("Een veld is leeg.");
         }
         else {
             var xhrExist = new XMLHttpRequest();
-            xhrExist.open('GET', 'http://localhost:8080/users/'+username+'/find');
+            password = md5(password);
+            console.log(password);
+            xhrExist.open('GET', 'http://localhost:8080/users/'+username+'/'+password);
             xhrExist.onload = function () {
                 // Response text is empty or an object..
                 var exists = JSON.parse(xhrExist.responseText);
 
                 if(exists[0]){
-                    console.log("Bestaat al.");
+                    // jsonstring for the data in the cookie
+                    var d = exists[0];
+                    var user_data = JSON.stringify({ user_id: d.user_id, username : d.username, email : d.email, admin : d.admin, date : d.date_of_birth });
+                    // set expire date (1 day)
+                    var d = new Date();
+                    d.setTime(d.getTime() + (1*24*60*60*1000));
+                    var expires = ";expires="+ d.toUTCString();
+                    // set cookie
+                    document.cookie = "user="+user_data+expires+";";
+                    console.log(document.cookie);
                 }
                 else {
-                    // MD5 the password
-                    password = md5(password);
-                    // Place the data in an object to convert to a json string
-                    var values = {
-                        username : username,
-                        password : password,
-                        email : email,
-                        date : date
-                    };
-
-                    // Convert object to jsonstring
-                    values = JSON.stringify(values);
-                    // HTTP post request
-                    var xhr = new XMLHttpRequest();
-                    xhr.open('POST', local);
-                    // Send our values
-                    xhr.send(values);
+                    console.log("Bestaat niet.");
                 }
             }
-            xhrExist.send();   
+            xhrExist.send();
         }
     }
   }
 })
+
+console.log(document.cookie);
 </script>

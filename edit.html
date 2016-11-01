@@ -5,6 +5,7 @@
       <META HTTP-EQUIV="Expires" CONTENT="-1">
         <title>Index</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+        <script src="includes/js/md5.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     </head>
@@ -21,9 +22,7 @@
 </html>
 
 <script>
-var local = 'http://localhost:8080/users/1';
-var localEdit = 'http://localhost:8080/users/1/edit';
-var live  = 'http://95.85.32.165:8080/users/1';
+var userid = 1;
 
 var demo = new Vue({
   el: '#demo',
@@ -38,27 +37,34 @@ var demo = new Vue({
         var password = document.getElementById('password').value;
         var email    = document.getElementById('email').value;
 
-        // Place the data in an object to convert to a json string
-        var values = {
-            user_id : 1,
-            username : username,
-            password : password,
-            email : email
-        };
+        if(username == "" || password == "" || email == ""){
+            console.log("Een veld is leeg.");
+        }
+        else {
+            // MD5 the password
+            password = md5(password);
+            // Place the data in an object to convert to a json string
+            var values = {
+                user_id : userid,
+                username : username,
+                password : password,
+                email : email
+            };
 
-        // Convert object to jsonstring
-        values = JSON.stringify(values);
-        // HTTP post request
-        var xhr = new XMLHttpRequest();
-        xhr.open('PUT', localEdit);
-        // Send our values
-        xhr.send(values);
+            // Convert object to jsonstring
+            values = JSON.stringify(values);
+            // HTTP post request
+            var xhr = new XMLHttpRequest();
+            xhr.open('PUT', 'http://localhost:8080/users/'+userid+'/edit');
+            // Send our values
+            xhr.send(values);
+        }
     },
 
     getData: function () {
         var xhr = new XMLHttpRequest()
         var self = this
-        xhr.open('GET', local)
+        xhr.open('GET', 'http://localhost:8080/users/'+userid)
         xhr.onload = function () {
             // Get values to show
             self.values = (JSON.parse(xhr.responseText))[0];
@@ -66,9 +72,11 @@ var demo = new Vue({
             var date = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
             // Place values in fields
             document.getElementById('username').value = self.values.username;
-            document.getElementById('password').value = self.values.password;
             document.getElementById('email').value = self.values.email;
             document.getElementById('date').value = date;
+
+            //this is invalid cause of md5 now 
+            //document.getElementById('password').value = self.values.password;
 
         }
         xhr.send()
