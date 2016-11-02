@@ -66,7 +66,7 @@ var demo = new Vue({
                     d.setTime(d.getTime() + (1*24*60*60*1000));
                     var expires = ";expires="+ d.toUTCString();
                     // set cookie
-                    document.cookie = "user="+user_data+expires+";";
+                    document.cookie = "user="+user_data+expires+";path=/;";
                 }
                 else {
                     console.log("Bestaat niet.");
