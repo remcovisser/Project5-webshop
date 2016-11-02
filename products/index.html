@@ -1,44 +1,67 @@
 <html>
-
-    <head>
-    </head>
-
 <body id="main-elem">
-  <div id="content">
-  <!--<div class="btn-group" role="group" aria-label="...">
-  <button type="button" class="btn btn-default" onclick="product.sort('desc')">Desc</button>
-  <button type="button" class="btn btn-default" onclick="product.sort()">Asc</button>
-</div>-->
+  <div id="wrapper">
+    <div id="content">
+      <div class="full">
+      <!-- Filter -->
+        <div class="twentyfive filter">
+          <h2>Filters</h2>
+          <h3>Filter by type</h3>
+          <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default dropdown-toggle selection" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Currently sorted by: {{sortValues[sortOption]}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu filters hundred">
+                <button type="button" class="btn btn-default" @click="sortOption='p_price'">Price</button>
+                <button type="button" class="btn btn-default" @click="sortOption='product_id'">Id</button>
+              </ul>
+          </div>
+          <div class="full">
+            <button type="button" class="btn btn-default fifty" onclick="product.sort('desc')">Descending</button>
+            <button type="button" class="btn btn-default fifty" onclick="product.sort()">Ascending</button>
+            <div style="clear:both;"></div>
+          </div>
 
-<div class="btn-group" role="group" aria-label="...">
-    <div class="btn-group" role="group">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{sortOption}}
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <button type="button" class="btn btn-default" @click="sortOption='p_price'">Price</button>
-      <button type="button" class="btn btn-default" @click="sortOption='product_id'">Id</button>
-      <!--<button type="button" class="btn btn-default">Type</button>-->
-    </ul>
-  </div>
-  <button type="button" class="btn btn-default" onclick="product.sort('desc')">Desc</button>
-  <button type="button" class="btn btn-default" onclick="product.sort()">Asc</button>
-</div>
+          <div class="price_holder">
+            <h3>Price</h3>
+              <div class="form-group">
+                <input type="text" class="form-control fifty" placeholder="min.">
+                <input type="text" class="form-control fifty" placeholder="max.">
+                <div style="clear:both;"></div>
+              </div>
+          </div>
 
-<template id="product-template">
-  <div>
-    <ul class="list-group" style="width:500px">
-      <li class="list-group-item"><b>Product ID:</b> {{id}}</li>
-      <li class="list-group-item"><b>Product Name:</b> {{name}}</li>
-      <li class="list-group-item"><b>Product Description:</b> {{description}}</li>
-      <li class="list-group-item"><b>Product Price:</b> €{{price}}</li>
-    </ul>
-  </div>
-</template>
+          <div class="search_holder">
+            <h3>Search</h3>
+            <input type="text" name="search_field" class="form-control" placeholder="Search for something.."/>
+          </div>
+        </div>
 
-<product-list v-for="val in values" :id="val.product_id" :name="val.p_name" :description="val.p_description" :price="val.p_price">
-  </product-list>
+        <!-- Filter -->
+        <!-- Products -->
+
+          <template id="product-template">
+            <a href="/products/{{id}}" class="prod_container">
+                <div class="product">
+                    <img src="http://placehold.it/350x150" alt="Afbeelding"/>
+                    <h3>{{name}}</h3>
+                    <p class="description"><i>{{description}}</i></p>
+                    <p class="price">&euro;  {{price}},-</p>
+                </div>
+                <div v-if="(index + 1) % 4 == 0" style="clear:both;">
+                </div>
+          </a>
+          </template>
+          <div class="seventyfive">
+            <h2>Products</h2>
+            <div class="products_container">
+              <product-list v-for="(key, val) in values" :id="val.product_id" :name="val.p_name" :description="val.p_description" :price="val.p_price" :index="key"></product-list>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+   </div>
 </div>
 </body>
 </html>
@@ -53,7 +76,7 @@ var live  = 'http://95.85.32.165:8080/users';
 
 Vue.component('product-list',
 {
-  props: ['id', 'name', 'description', 'price'],
+  props: ['id', 'name', 'description', 'price', 'index'],
   template: '#product-template'
 });
 
@@ -61,7 +84,8 @@ var product = new Vue({
   el: '#main-elem',
   data : {
     values : [],
-    sortOption : "product_id"
+    sortOption : "product_id",
+    sortValues : { product_id : "Id", p_price : "Price", p_name : "Name" }
   },
   methods: {
     fetchData: function () {
