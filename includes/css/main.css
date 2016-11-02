@@ -35,6 +35,11 @@ body {
   float:left;
 }
 
+.hello {
+  float:right;
+  padding-top:15px;
+}
+
 .fifty {
   width:50%;
   float:left;
