@@ -34,7 +34,7 @@
 
           <div class="search_holder">
             <h3>Search</h3>
-            <input type="text" name="search_field" class="form-control" placeholder="Search for something.."/>
+            <input type="text" name="search_field" class="form-control" placeholder="Search for something.." onkeydown="product.filter(this.value)"/>
           </div>
         </div>
 
@@ -56,7 +56,7 @@
           <div class="seventyfive">
             <h2>Products</h2>
             <div class="products_container">
-              <product-list v-for="(key, val) in values" :id="val.product_id" :name="val.p_name" :description="val.p_description" :price="val.p_price" :index="key"></product-list>
+              <product-list v-for="(key, val) in modifiedValues" :id="val.product_id" :name="val.p_name" :description="val.p_description" :price="val.p_price" :index="key"></product-list>
             </div>
         </div>
         <div style="clear:both;"></div>
@@ -85,7 +85,8 @@ var product = new Vue({
   data : {
     values : [],
     sortOption : "product_id",
-    sortValues : { product_id : "Id", p_price : "Price", p_name : "Name" }
+    sortValues : { product_id : "Id", p_price : "Price", p_name : "Name" },
+    modifiedValues : []
   },
   methods: {
     fetchData: function () {
@@ -94,6 +95,7 @@ var product = new Vue({
       xhr.open('GET', local)
       xhr.onload = function () {
         self.values = JSON.parse(xhr.responseText)
+        self.modifiedValues = self.values;
       }
       xhr.send()
     },
@@ -101,11 +103,10 @@ var product = new Vue({
     sort: function(sort)
     {
       var self = this;
-      this.values = this.values.sort(function(a, b)
+      this.modifiedValues = this.modifiedValues.sort(function(a, b)
       {
         if(sort === 'desc')
         {
-          console.log(self.sortOption);
           return b[self.sortOption] - a[self.sortOption];
         }
         else
@@ -113,6 +114,25 @@ var product = new Vue({
           return a[self.sortOption] - b[self.sortOption];
         }
       });
+    },
+
+    filter: function(search)
+    {
+      var self = this;      
+      if (event.keyCode == 13)
+      {
+        this.modifiedValues = this.values.filter(function(value)
+        {
+          if(value.p_name.toLowerCase().indexOf(search.toLowerCase()) >= 0)
+          {
+            return true;
+          }
+          else
+          {
+            return false;
+          }
+        })
+      } 
     }
   }
 })
