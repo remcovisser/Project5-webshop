@@ -1,16 +1,10 @@
 <html>
 
     <head>
-      <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-      <META HTTP-EQUIV="Expires" CONTENT="-1">
-        <title>Index</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
-        <script src="includes/js/md5.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     </head>
 
     <body>
+      <div id="content">
         <div id="demo">
             <input type="text" id="username" placeholder="username" />
             <input type="password" id="password" placeholder="password" />
@@ -18,10 +12,16 @@
             <input type="text" id="date" placeholder="date"/>
             <button v-on:click="saveData" name="save">Registreren</button>
         </div>
+      </div>
     </body>
 </html>
 
+<script src="../includes/master/master.js"></script>
+<script src="../includes/js/md5.js"></script>
 <script>
+$(document).ready(function() {
+      document.title += 'register';
+});
 var local = 'http://localhost:8080/users/create';
 var live  = 'http://95.85.32.165:8080/users';
 
@@ -71,7 +71,7 @@ var demo = new Vue({
                     xhr.send(values);
                 }
             }
-            xhrExist.send();   
+            xhrExist.send();
         }
     }
   }

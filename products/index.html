@@ -1,17 +1,10 @@
 <html>
 
     <head>
-      <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-      <META HTTP-EQUIV="Expires" CONTENT="-1">
-        <title>Index</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
 <body id="main-elem">
+  <div id="content">
   <!--<div class="btn-group" role="group" aria-label="...">
   <button type="button" class="btn btn-default" onclick="product.sort('desc')">Desc</button>
   <button type="button" class="btn btn-default" onclick="product.sort()">Asc</button>
@@ -46,15 +39,19 @@
 
 <product-list v-for="val in values" :id="val.product_id" :name="val.p_name" :description="val.p_description" :price="val.p_price">
   </product-list>
-  
+</div>
 </body>
 </html>
-
+<script src="../includes/master/master.js"></script>
 <script>
+$(document).ready(function() {
+      document.title += 'products';
+});
+
 var local = 'http://localhost:8080/products';
 var live  = 'http://95.85.32.165:8080/users';
 
-Vue.component('product-list', 
+Vue.component('product-list',
 {
   props: ['id', 'name', 'description', 'price'],
   template: '#product-template'
@@ -80,7 +77,7 @@ var product = new Vue({
     sort: function(sort)
     {
       var self = this;
-      this.values = this.values.sort(function(a, b) 
+      this.values = this.values.sort(function(a, b)
       {
         if(sort === 'desc')
         {
@@ -92,7 +89,7 @@ var product = new Vue({
           return a[self.sortOption] - b[self.sortOption];
         }
       });
-    } 
+    }
   }
 })
 

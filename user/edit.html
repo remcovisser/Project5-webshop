@@ -21,7 +21,12 @@
     </body>
 </html>
 
+<script src="../includes/master/master.js"></script>
 <script>
+$(document).ready(function() {
+      document.title += 'user edit';
+});
+
 var userid = 1;
 
 var demo = new Vue({
@@ -75,7 +80,7 @@ var demo = new Vue({
             document.getElementById('email').value = self.values.email;
             document.getElementById('date').value = date;
 
-            //this is invalid cause of md5 now 
+            //this is invalid cause of md5 now
             //document.getElementById('password').value = self.values.password;
 
         }
