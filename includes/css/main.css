@@ -35,6 +35,11 @@ body {
   float:left;
 }
 
+.hello {
+  float:right;
+  padding-top:15px;
+}
+
 .fifty {
   width:50%;
   float:left;
@@ -53,10 +58,10 @@ body {
   width:100%;
 }
 
-.filter .btn-group, 
-.filter .btn-group .selection, 
+.filter .btn-group,
+.filter .btn-group .selection,
 .filter .btn-group .filters,
-.filter .btn-group .filters button{ 
+.filter .btn-group .filters button{
   width:100%;
 }
 
@@ -73,7 +78,7 @@ body {
 }
 
 .prod_container:hover .product h3 {
-  
+
 }
 
 .product {
@@ -83,9 +88,9 @@ body {
   text-align:center;
   margin-bottom:20px;
   border:1px solid #cfd7e1;
-  -webkit-border-radius: 4px; 
-  -moz-border-radius: 4px; 
-  border-radius: 4px; 
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   position:relative;
 }
 
@@ -114,8 +119,8 @@ body {
   padding:2px;
   font-size:12px;
   background:#FFF;
-  -webkit-border-radius: 4px; 
-  -moz-border-radius: 4px; 
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
 }
 
 .product img {
@@ -128,11 +133,13 @@ footer {
   margin-top: 20px;
   background-color: #f8f8f8;
   border: 1px solid #e7e7e7 !important;
+  margin-bottom: 0px !important;
 }
 
 footer  p {
   text-align: center;
-  padding:20px 0; 
+  margin-top: 40px;
+  padding:20px 0;
 }
 
 /* Trashy helpers */
