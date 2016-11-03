@@ -14,7 +14,7 @@ $(document).ready(function(){
     });
 
     // check if logged in..
-    if(user) {
+    if(user || admin) {
         // Things to do/hide when you're logged in
         $(".login").remove();
         $(".register").remove();

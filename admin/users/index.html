@@ -1,5 +1,5 @@
 <html>
-<!-- BANNED BOOLEAN TOEVOEGEN AAN SQL BESTAND, DE MODEL EN DATABASE -->
+<!-- BANNED FUNCTIONALITY HAS TO BE ADDED TO EDIT PAGE WHEN THE LINK PROPERLY WORkS.. -->
     <head></head>
 
     <body>
@@ -19,9 +19,9 @@
                 <td>{{val.username}}</td>
                 <td>{{val.email}}</td>
                 <td>{{val.date_of_birth}}</td>
-                <td>Misschien...</td>
-                <td><button data-userid="{{val.id}}" name="edit" v-on:click="editData(this)">Aanpassen</button></td>
-                <td><button data-userid="{{val.id}}" name="delete" v-on:click="deleteData(this)">Verwijderen</button></td>
+                <td>{{val.boolean_banned}}</td>
+                <td><a class="btn btn-primary" href="/admin/users/edit?id={{val.user_id}}" name="edit">Update</a></td>
+                <td><button data-userid="{{val.id}}" class="btn" name="delete" v-on:click="deleteData(this)">Delete</button></td>
               </tr>
           </tbody>
           </table>
@@ -44,17 +44,28 @@ var demo = new Vue({
       xhr.open('GET', local + 'users')
       xhr.onload = function () {
         self.values = JSON.parse(xhr.responseText)
+        $.each(self.values, function(k,v) {
+          if(v.boolean_banned === 0) {
+            v.boolean_banned = "No";
+          }
+          else {
+            v.boolean_banned = "Yes";
+          }
+        })
       }
       xhr.send();
     },
     deleteData: function (thisEl) {
       var id = thisEl.val.user_id;
       var localDelete = local+'users/'+id;
+      console.log(localDelete);
       // HTTP post request
       var xhr = new XMLHttpRequest();
       xhr.open('DELETE', localDelete);
       // Send our values
       xhr.send();
+      alert("User was deleted.");
+      window.location = window.location;
     },
     editData: function (thisEl) {
       var id = thisEl.val.user_id;

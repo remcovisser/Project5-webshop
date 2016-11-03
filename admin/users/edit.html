@@ -1,0 +1,98 @@
+<html>
+    <head></head>
+
+    <body>
+        <div id="content">
+            <div id="demo">
+                <input type="text" id="username" placeholder="New username" />
+                <input type="password" id="password" placeholder="New password" />
+                <input type="email" id="email" placeholder="New emailaddress"/>
+                <input type="text" id="date" disabled/>
+                <button v-on:click="saveData" name="save">Save changes</button>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script src="../includes/master/master.js"></script>
+<script src="../includes/js/md5.js"></script>
+<script>
+
+function isValidDate(dateString) {
+  var regEx = /^\d{4}-\d{2}-\d{2}$/;
+  return dateString.match(regEx) != null;
+}
+
+$(document).ready(function() {
+      document.title += 'user edit';
+});
+
+if(user){    
+    var demo = new Vue({
+    el: '#demo',
+    data : {
+        values : null
+    },
+    methods: {
+        saveData: function () {
+            // Place them in variables for the form checks
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var email    = document.getElementById('email').value;
+
+            if(username == "" || password == "" || email == ""){
+                alert("Een veld is leeg.");
+            }
+            else if(password.length < 5) {
+                alert("Password has to be at least 5 characters")
+            }
+            else {
+                // MD5 the password
+                password = md5(password);
+                // Place the data in an object to convert to a json string
+                var values = {
+                    user_id : userVals.user_id,
+                    username : username,
+                    password : password,
+                    email : email
+                };
+
+                // Convert object to jsonstring
+                values = JSON.stringify(values);
+                // HTTP post request
+                var xhr = new XMLHttpRequest();
+                xhr.open('PUT', local+'users/'+userVals.user_id);
+                // Send our values
+                xhr.send(values);
+
+                alert("Your data has been updated!");
+                window.location = '/';
+            }
+        },
+
+        getData: function () {
+            var xhr = new XMLHttpRequest()
+            var self = this
+            xhr.open('GET', local+'users/'+userVals.user_id)
+            xhr.onload = function () {
+                // Get values to show
+                self.values = (JSON.parse(xhr.responseText))[0];
+                var date = new Date(self.values.date_of_birth);
+                var date = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+                // Place values in fields
+                document.getElementById('username').value = self.values.username;
+                document.getElementById('email').value = self.values.email;
+                document.getElementById('date').value = date;
+            }
+            xhr.send()
+        }
+    }
+    })
+
+    demo.getData();
+}
+else {
+    window.location = '/';
+}
+
+</script>

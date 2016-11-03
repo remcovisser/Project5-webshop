@@ -18,7 +18,7 @@
                   <li>{{val.password}}</li>
                   <li>{{val.email}}</li>
                   <li>{{val.date_of_birth}}</li>
-                  <li><button data-userid="{{val.id}}" name="edit" v-on:click="editData(this)">Aanpassen</button>
+                  <li><a class="btn" href="/admin/users/edit?id={val.id}" name="edit">Aanpassen</a>
                   <li><button data-userid="{{val.id}}" name="delete" v-on:click="deleteData(this)">Verwijderen</button>
                 </ul>
           </div>
@@ -56,11 +56,6 @@ var demo = new Vue({
       xhr.open('DELETE', localDelete);
       // Send our values
       xhr.send();
-    },
-    editData: function (thisEl) {
-      var id = thisEl.val.user_id;
-      var localEdit = local+'users/'+id;
-      window.location.href = localEdit;
     }
   }
 })
