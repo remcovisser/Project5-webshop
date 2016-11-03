@@ -1,6 +1,8 @@
 var root = location.protocol + '//' + location.host;
-var local = 'http://localhost:8080/';
-var live  = 'http://95.85.32.165:8080/';
+var local = "http://localhost:8080/";
+
+var admin = false;
+var user = false;
 
 document.writeln('<script type="text/javascript" src="'+root+'/includes/js/jquery-3.1.1.js"></script>');
 document.writeln('<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>');
@@ -20,3 +22,11 @@ document.onreadystatechange = function () {
     });
   }
 };
+
+if(document.cookie != "") {
+    var parts = (document.cookie.split("user="))[1];
+    var userVals = JSON.parse(parts);
+    if(userVals) {
+      user = true;
+    }
+}

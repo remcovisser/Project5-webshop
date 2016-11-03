@@ -32,7 +32,6 @@
 $(document).ready(function() {
       document.title += 'users';
 });
-var local = 'http://localhost:8080/users';
 
 var demo = new Vue({
   el: '#demo',
@@ -51,7 +50,7 @@ var demo = new Vue({
     },
     deleteData: function (thisEl) {
       var id = thisEl.val.user_id;
-      var localDelete = 'http://localhost:8080/users/'+id;
+      var localDelete = local+'users/'+id;
       // HTTP post request
       var xhr = new XMLHttpRequest();
       xhr.open('DELETE', localDelete);
@@ -60,7 +59,7 @@ var demo = new Vue({
     },
     editData: function (thisEl) {
       var id = thisEl.val.user_id;
-      var localEdit = 'http://localhost:8080/users/'+id;
+      var localEdit = local+'users/'+id;
       window.location.href = localEdit;
     }
   }

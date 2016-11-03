@@ -19,11 +19,15 @@
 <script src="../includes/master/master.js"></script>
 <script src="../includes/js/md5.js"></script>
 <script>
+
+function isValidDate(dateString) {
+  var regEx = /^\d{4}-\d{2}-\d{2}$/;
+  return dateString.match(regEx) != null;
+}
+
 $(document).ready(function() {
       document.title += 'register';
 });
-var local = 'http://localhost:8080/users/create';
-var live  = 'http://95.85.32.165:8080/users';
 
 var demo = new Vue({
   el: '#demo',
@@ -39,17 +43,23 @@ var demo = new Vue({
         var date     = document.getElementById('date').value;
 
         if(username == "" || password == "" || email == "" || date == ""){
-            console.log("Een veld is leeg.");
+            alert("Je hebt een veld leeggelaten.");
+        }
+        else if(password.length < 5) {
+            alert("Password has to be at least 5 characters")
+        }
+        else if(!isValidDate(date)) {
+            alert("Please enter a valid date (yyyy-mm-dd)");
         }
         else {
             var xhrExist = new XMLHttpRequest();
-            xhrExist.open('GET', 'http://localhost:8080/users/'+username+'/find');
+            xhrExist.open('GET', local+'users/'+username+'/find');
             xhrExist.onload = function () {
                 // Response text is empty or an object..
                 var exists = JSON.parse(xhrExist.responseText);
 
                 if(exists[0]){
-                    console.log("Bestaat al.");
+                    alert("Username in gebruik.")
                 }
                 else {
                     // MD5 the password
@@ -59,16 +69,18 @@ var demo = new Vue({
                         username : username,
                         password : password,
                         email : email,
-                        date : date
+                        date_of_birth : date
                     };
-
+                    
                     // Convert object to jsonstring
                     values = JSON.stringify(values);
                     // HTTP post request
                     var xhr = new XMLHttpRequest();
-                    xhr.open('POST', local);
+                    xhr.open('POST', local+'/users/create');
                     // Send our values
                     xhr.send(values);
+
+                    window.location = '/user/login.html';
                 }
             }
             xhrExist.send();

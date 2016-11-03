@@ -5,7 +5,7 @@ $(document).ready(function(){
 
     $(".main_menu li a").each(function() {
        var currentlink = $(this).attr('href').replace('/', '');
-       if(currentlink == currentPage[3] || currentlink == currentPage[2]) {
+       if(currentlink == currentPage[3]) {
          $(this).parent('li').addClass('active');
        }
        else {
@@ -14,22 +14,16 @@ $(document).ready(function(){
     });
 
     // check if logged in..
-    var logged = document.cookie;
-    console.log(logged);
-    if(logged != "") {
-        var parts = (logged.split("user="))[1];
-        var values = JSON.parse(parts);
-
+    if(user) {
         // Things to do/hide when you're logged in
-        
-          $(".login").remove();
-          $(".register").remove();
-          $(".user_panel .main").append(values.username + " <span class='caret'></span>");
+        $(".login").remove();
+        $(".register").remove();
+        $(".user_panel .main").append(userVals.username + " <span class='caret'></span>");
 
-          $(".logout a").on("click", function(){
-            document.cookie = "user=; Max-Age=0; path=/;";
-            location.reload();
-          });
+        $(".logout a").on("click", function(){
+          document.cookie = "user=; Max-Age=0; path=/;";
+          location.reload();
+        });
     }
     else {
         $(".user_panel .main").append("Hey user! <span class='caret'></span>");
