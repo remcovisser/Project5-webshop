@@ -1,33 +1,36 @@
 <html>
-
-    <head>
-      <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-      <META HTTP-EQUIV="Expires" CONTENT="-1">
-        <title>Index</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    </head>
+<!-- BANNED BOOLEAN TOEVOEGEN AAN SQL BESTAND, DE MODEL EN DATABASE -->
+    <head></head>
 
     <body>
       <div id="content">
         <ul>
-          <div id="demo" v-for="val in values">
-                <li>{{val.username}}</li>
-                <ul>
-                  <li>{{val.password}}</li>
-                  <li>{{val.email}}</li>
-                  <li>{{val.date_of_birth}}</li>
-                  <li><button data-userid="{{val.id}}" name="edit" v-on:click="editData(this)">Aanpassen</button>
-                  <li><button data-userid="{{val.id}}" name="delete" v-on:click="deleteData(this)">Verwijderen</button>
-                </ul>
-          </div>
+          <table class="table">
+            <tr>
+              <th>Username</th>
+              <th>Emailaddress</th>
+              <th>Date of birth</th>
+              <th>Banned</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          <tbody id="demo" v-for="val in values">
+              <tr>
+                <td>{{val.username}}</td>
+                <td>{{val.email}}</td>
+                <td>{{val.date_of_birth}}</td>
+                <td>Misschien...</td>
+                <td><button data-userid="{{val.id}}" name="edit" v-on:click="editData(this)">Aanpassen</button></td>
+                <td><button data-userid="{{val.id}}" name="delete" v-on:click="deleteData(this)">Verwijderen</button></td>
+              </tr>
+          </tbody>
+          </table>
         </ul>
     </div>
     </body>
 </html>
 
-<script src="../includes/master/master.js"></script>
+<script src="../../includes/master/master.js"></script>
 <script>
 var demo = new Vue({
   el: '#demo',
@@ -38,11 +41,11 @@ var demo = new Vue({
     fetchData: function () {
       var xhr = new XMLHttpRequest()
       var self = this
-      xhr.open('GET', local)
+      xhr.open('GET', local + 'users')
       xhr.onload = function () {
         self.values = JSON.parse(xhr.responseText)
       }
-      xhr.send()
+      xhr.send();
     },
     deleteData: function (thisEl) {
       var id = thisEl.val.user_id;
