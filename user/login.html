@@ -45,7 +45,7 @@ var demo = new Vue({
                 if(exists[0]){
                     // jsonstring for the data in the cookie
                     var d = exists[0];
-                    var user_data = JSON.stringify({ user_id: d.user_id, username : d.username, email : d.email, date : d.date_of_birth });
+                    var user_data = JSON.stringify({ user_id: d.user_id, username : d.username, email : d.email, date : d.date_of_birth, admin : d.admin });
                     // set expire date (1 day)
                     var d = new Date();
                     d.setTime(d.getTime() + (1*24*60*60*1000));
