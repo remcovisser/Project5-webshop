@@ -35,9 +35,43 @@ body {
   float:left;
 }
 
-.hello {
-  float:right;
-  padding-top:15px;
+.user_panel {
+  float:right; 
+  padding:4px 0;
+}
+
+.user_panel a {
+  display:block;
+  color: #777;
+  padding: 15px 20px;
+  border:1px solid #cfd7e1;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.user_panel.open > a {
+  border-color: #cacaca !important;
+}
+
+.user_panel a:hover, .user_panel a:active {
+  color:#333;
+  text-decoration:none;
+}
+
+.user_panel .dropdown-menu {
+  padding:0;
+  min-width:110px;
+  width:110px;
+}
+
+
+.user_panel .dropdown-menu > li > a {
+  padding:5px;
+}
+
+.user_panel .dropdown-menu a {
+  border:none;
 }
 
 .fifty {
