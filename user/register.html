@@ -79,7 +79,7 @@ var demo = new Vue({
                     xhr.open('POST', local+'/users/create');
                     // Send our values
                     xhr.send(values);
-
+                    alert("You succesfully registered!");
                     window.location = '/user/login.html';
                 }
             }
