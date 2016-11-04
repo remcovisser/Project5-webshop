@@ -56,9 +56,8 @@ methods: {
         var self = this
         xhr.open('GET', local+'products/'+prodId)
         xhr.onload = function () {
-            // Get values to show
-            self.values = (JSON.parse(xhr.responseText))[0];
-            console.log(self.values);
+        // Get values to show
+        self.values = (JSON.parse(xhr.responseText))[0];
         }
         xhr.send()
     }
