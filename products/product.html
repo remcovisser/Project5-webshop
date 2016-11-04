@@ -43,32 +43,28 @@
 <script src="../../includes/master/master.js"></script>
 <script>
 var prodId = (window.location.href.split('?id='))[1];
-
-if(admin){    
-    var demo = new Vue({
-    el: '#demo',
-    data : {
-        values : null
-    },
-    methods: {
-        getData: function () {
-            var xhr = new XMLHttpRequest()
-            var self = this
-            xhr.open('GET', local+'products/'+prodId)
-            xhr.onload = function () {
-                // Get values to show
-                self.values = (JSON.parse(xhr.responseText))[0];
-                console.log(self.values);    
-            }
-            xhr.send()
+  
+var demo = new Vue({
+el: '#demo',
+data : {
+    values : null
+},
+methods: {
+    getData: function () {
+        var xhr = new XMLHttpRequest()
+        var self = this
+        xhr.open('GET', local+'products/'+prodId)
+        xhr.onload = function () {
+            // Get values to show
+            self.values = (JSON.parse(xhr.responseText))[0];
+            console.log(self.values);    
         }
+        xhr.send()
     }
-    })
+}
+})
 
-    demo.getData();
-}
-else {
-    window.location = '/';
-}
+demo.getData();
+
 
 </script>
