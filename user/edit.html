@@ -50,7 +50,7 @@ if(user){
                 // MD5 the password
                 password = md5(password);
                 // Place the data in an object to convert to a json string
-                var values = {
+                var valuesObj = {
                     user_id : userVals.user_id,
                     username : username,
                     password : password,
@@ -58,12 +58,21 @@ if(user){
                 };
 
                 // Convert object to jsonstring
-                values = JSON.stringify(values);
+                values = JSON.stringify(valuesObj);
                 // HTTP post request
                 var xhr = new XMLHttpRequest();
                 xhr.open('PUT', local+'users/'+userVals.user_id);
                 // Send our values
                 xhr.send(values);
+
+                // Update cookie to show the right name in the header
+                var user_data = JSON.stringify({ user_id: valuesObj.user_id, username : valuesObj.username, email : valuesObj.email, date : valuesObj.date_of_birth, admin : valuesObj.admin });
+                // set expire date (1 day)
+                var d = new Date();
+                d.setTime(d.getTime() + (1*24*60*60*1000));
+                var expires = ";expires="+ d.toUTCString();
+                // set cookie
+                document.cookie = "user="+user_data+expires+";path=/";
 
                 alert("Your data has been updated!");
                 window.location = '/';

@@ -32,7 +32,7 @@ var demo = new Vue({
         var password = document.getElementById('password').value;
 
         if(username == "" || password == ""){
-            console.log("Een veld is leeg.");
+            alert("A field was left empty.");
         }
         else {
             var xhrExist = new XMLHttpRequest();
@@ -51,11 +51,11 @@ var demo = new Vue({
                     d.setTime(d.getTime() + (1*24*60*60*1000));
                     var expires = ";expires="+ d.toUTCString();
                     // set cookie
-                    document.cookie = "user="+user_data+expires+";path=/;";
+                    document.cookie = "user="+user_data+expires+";path=/";
                     window.location = '/';
                 }
                 else {
-                    console.log("Bestaat niet.");
+                    alert("Wrong username / password.");
                 }
             }
             xhrExist.send();

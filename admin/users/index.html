@@ -20,7 +20,7 @@
                 <td>{{val.email}}</td>
                 <td>{{val.date_of_birth}}</td>
                 <td>{{val.boolean_banned}}</td>
-                <td><a class="btn btn-primary" href="/admin/users/edit?id={{val.user_id}}" name="edit">Update</a></td>
+                <td><a class="btn btn-primary" href="/admin/users/edit.html?id={{val.user_id}}" name="edit">Update</a></td>
                 <td><button data-userid="{{val.id}}" class="btn" name="delete" v-on:click="deleteData(this)">Delete</button></td>
               </tr>
           </tbody>
@@ -32,48 +32,52 @@
 
 <script src="../../includes/master/master.js"></script>
 <script>
-var demo = new Vue({
-  el: '#demo',
-  data : {
-    values : null
-  },
-  methods: {
-    fetchData: function () {
-      var xhr = new XMLHttpRequest()
-      var self = this
-      xhr.open('GET', local + 'users')
-      xhr.onload = function () {
-        self.values = JSON.parse(xhr.responseText)
-        $.each(self.values, function(k,v) {
-          if(v.boolean_banned === 0) {
-            v.boolean_banned = "No";
-          }
-          else {
-            v.boolean_banned = "Yes";
-          }
-        })
+if(admin){
+  var demo = new Vue({
+    el: '#demo',
+    data : {
+      values : null
+    },
+    methods: {
+      fetchData: function () {
+        var xhr = new XMLHttpRequest()
+        var self = this
+        xhr.open('GET', local + 'users')
+        xhr.onload = function () {
+          self.values = JSON.parse(xhr.responseText)
+          $.each(self.values, function(k,v) {
+            if(v.boolean_banned === 0) {
+              v.boolean_banned = "No";
+            }
+            else {
+              v.boolean_banned = "Yes";
+            }
+          })
+        }
+        xhr.send();
+      },
+      deleteData: function (thisEl) {
+        var id = thisEl.val.user_id;
+        var localDelete = local+'users/'+id;
+        // HTTP post request
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', localDelete);
+        // Send our values
+        xhr.send();
+        alert("User was deleted.");
+        window.location = window.location;
+      },
+      editData: function (thisEl) {
+        var id = thisEl.val.user_id;
+        var localEdit = local+'users/'+id;
+        window.location.href = localEdit;
       }
-      xhr.send();
-    },
-    deleteData: function (thisEl) {
-      var id = thisEl.val.user_id;
-      var localDelete = local+'users/'+id;
-      console.log(localDelete);
-      // HTTP post request
-      var xhr = new XMLHttpRequest();
-      xhr.open('DELETE', localDelete);
-      // Send our values
-      xhr.send();
-      alert("User was deleted.");
-      window.location = window.location;
-    },
-    editData: function (thisEl) {
-      var id = thisEl.val.user_id;
-      var localEdit = local+'users/'+id;
-      window.location.href = localEdit;
     }
-  }
-})
+  })
+}
+else {
+  window.location = '/';
+}
 
 demo.fetchData();
 </script>

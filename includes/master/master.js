@@ -26,9 +26,10 @@ document.onreadystatechange = function () {
 if(document.cookie != "") {
     var parts = (document.cookie.split("user="))[1];
     var userVals = JSON.parse(parts);
-    console.log(userVals);
+    
     if(userVals) {
       if(userVals.admin === 1){
+        user = true;
         admin = true;
       }else {
         user = true;

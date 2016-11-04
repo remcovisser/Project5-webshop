@@ -16,8 +16,10 @@ $(document).ready(function(){
     // check if logged in..
     if(user || admin) {
         // Things to do/hide when you're logged in
-        $(".login").remove();
-        $(".register").remove();
+        $(".guest").remove();
+        if(!admin) {
+          $(".admin").remove();
+        }
         $(".user_panel .main").append(userVals.username + " <span class='caret'></span>");
 
         $(".logout a").on("click", function(){
@@ -27,8 +29,8 @@ $(document).ready(function(){
     }
     else {
         $(".user_panel .main").append("Hey user! <span class='caret'></span>");
-        $(".settings").remove();
-        $(".logout").remove();
+        $(".admin").remove();
+        $(".user").remove();
     }
 });
 </script>
@@ -51,13 +53,6 @@ $(document).ready(function(){
       <ul class="nav navbar-nav main_menu">
         <li><a href="/">Home</a></li>
         <li><a href="/products">Products</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/admin/plots/index.html">Plots</a></li>
-            <li><a href="/admin/users/index.html">Users</a></li>
-          </ul>
-        </li>
       </ul>
       <ul class="nav">
       <li class="dropdown user_panel">
@@ -65,10 +60,12 @@ $(document).ready(function(){
           <span class="glyphicon glyphicon-user" aria-hidden="true"></span> 
         </a>
         <ul class="dropdown-menu">
-          <li class="register"><a href="/user/register.html">Register</a></li>
-          <li class="login"><a href="/user/login.html">Login</a></li>
-          <li class="settings"><a href="/user/edit.html">Settings</a></li>
-          <li class="logout"><a href="javascript:void(0)">Logout</a></li>
+          <li class="guest"><a href="/user/register.html">Register</a></li>
+          <li class="guest"><a href="/user/login.html">Login</a></li>
+          <li class="admin"><a href="/admin/plots/index.html">Plots</a></li>
+          <li class="admin"><a href="/admin/users/index.html">Users</a></li>
+          <li class="user"><a href="/user/edit.html">Settings</a></li>
+          <li class="user logout"><a href="javascript:void(0)">Logout</a></li>
         </ul>
       </li>
       </ul>
