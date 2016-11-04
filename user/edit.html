@@ -4,11 +4,24 @@
     <body>
         <div id="content">
             <div id="demo">
-                <input type="text" id="username" placeholder="New username" />
-                <input type="password" id="password" placeholder="New password" />
-                <input type="email" id="email" placeholder="New emailaddress"/>
-                <input type="text" id="date" disabled/>
-                <button v-on:click="saveData" name="save">Save changes</button>
+                <div class="form-group">
+                    <label for="Username">Username</label>
+                    <input type="text" class="form-control" id="username" />  
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password"/>  
+                </div>
+                <div class="form-group">
+                    <label for="email">Emailaddress</label>
+                    <input type="email" class="form-control" id="email"/> 
+                </div>
+                <div class="form-group">
+                    <label for="date">Date of birth</label>
+                    <input type="text" class="form-control" id="date" disabled/>
+                </div>
+                
+                <button v-on:click="saveData" class="btn btn-default" name="save">Save changes</button>
             </div>
         </div>
     </body>

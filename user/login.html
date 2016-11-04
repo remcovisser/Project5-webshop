@@ -4,9 +4,15 @@
     <body>
         <div id="content">
           <div id="demo">
-              <input type="text" id="username" placeholder="username" />
-              <input type="password" id="password" placeholder="password" />
-              <button v-on:click="login" name="login">Login</button>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" />  
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password"/>  
+              </div>
+              <button v-on:click="login" class="btn btn-default" name="login">Login</button>
           </div>
         </div>
     </body>
@@ -41,7 +47,6 @@ var demo = new Vue({
             xhrExist.onload = function () {
                 // Response text is empty or an object..
                 var exists = JSON.parse(xhrExist.responseText);
-
                 if(exists[0]){
                     // jsonstring for the data in the cookie
                     var d = exists[0];
