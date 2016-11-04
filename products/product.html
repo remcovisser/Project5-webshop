@@ -7,7 +7,7 @@
                 <div class="twentyfive text-centered">
                     <img src="{{values.p_image}}" class="full" alt="{{values.p_name}}"/>
                     <h2>&euro; {{values.p_price}},-</h2>
-                    <button class="btn btn-default" name="order">Order</button>
+                    <button class="btn btn-default" name="order" onclick="addToCartClicked({{values.product_id}})">Order</button>
                 </div>
                 <div class="seventyfive">
                     <h1>{{values.p_name}}</h1>
@@ -41,9 +41,10 @@
 </html>
 
 <script src="../../includes/master/master.js"></script>
+<script src="../cart/cart.js"></script>
 <script>
 var prodId = (window.location.href.split('?id='))[1];
-  
+
 var demo = new Vue({
 el: '#demo',
 data : {
@@ -57,7 +58,7 @@ methods: {
         xhr.onload = function () {
             // Get values to show
             self.values = (JSON.parse(xhr.responseText))[0];
-            console.log(self.values);    
+            console.log(self.values);
         }
         xhr.send()
     }

@@ -3,13 +3,11 @@
     <body>
 
         <div id="content">
-          <button onclick="addToCartClicked(9)">Add to cart</button>
           <button onclick="emptyCart()">Empty cart</button>
-
 
           <div id="cart">
             <template id="product-template">
-              <a href="/products/{{id}}" class="prod_container">
+              <a href="/products/product.html?id={{id}}" class="prod_container">
                   <div class="product">
                       <img src="{{image}}" alt="Afbeelding"/>
                       <h3>{{name}}</h3>
