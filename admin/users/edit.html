@@ -20,15 +20,27 @@
                     <label for="date">Date of birth</label>
                     <input type="text" class="form-control" id="date" disabled/>
                 </div>
-                
+                <div class="form-group">
+                    <label for="banned">Banned</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="banned_y" name="banned" value="1"> Yes
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="banned_n" name="banned" value="0"> No
+                        </label>
+                    </div>
+                </div>
                 <button v-on:click="saveData" class="btn btn-default" name="save">Save changes</button>
             </div>
         </div>
     </body>
 </html>
 
-<script src="../includes/master/master.js"></script>
-<script src="../includes/js/md5.js"></script>
+<script src="../../includes/master/master.js"></script>
+<script src="../../includes/js/md5.js"></script>
 <script>
 
 function isValidDate(dateString) {
@@ -40,7 +52,9 @@ $(document).ready(function() {
       document.title += 'user edit';
 });
 
-if(user){
+var ourId = (window.location.href.split('?id='))[1];
+
+if(admin){    
     var demo = new Vue({
     el: '#demo',
     data : {
@@ -52,59 +66,63 @@ if(user){
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
             var email    = document.getElementById('email').value;
+            var date     = document.getElementById('date').value;
+            var boolean_banned = $('input[name=banned]:checked').val();
 
-            if(username == "" || password == "" || email == ""){
+            if(username == "" || email == ""){
                 alert("Een veld is leeg.");
             }
-            else if(password.length < 5) {
-                alert("Password has to be at least 5 characters")
-            }
             else {
-                // MD5 the password
-                password = md5(password);
+                if(password.length > 4) {
+                    password = md5(password);
+                }
+                else {
+                    password = this.values.password;
+                }
                 // Place the data in an object to convert to a json string
-                var valuesObj = {
-                    user_id : userVals.user_id,
+                var values = {
+                    user_id : this.values.user_id,
                     username : username,
                     password : password,
-                    email : email
+                    email : email,
+                    date_of_birth : date,
+                    boolean_banned : boolean_banned
                 };
 
                 // Convert object to jsonstring
-                values = JSON.stringify(valuesObj);
+                values = JSON.stringify(values);
                 // HTTP post request
                 var xhr = new XMLHttpRequest();
-                xhr.open('PUT', local+'users/'+userVals.user_id);
+                xhr.open('PUT', local+'users/'+ourId);
                 // Send our values
                 xhr.send(values);
 
-                // Update cookie to show the right name in the header
-                var user_data = JSON.stringify({ user_id: valuesObj.user_id, username : valuesObj.username, email : valuesObj.email, date : valuesObj.date_of_birth, admin : valuesObj.admin });
-                // set expire date (1 day)
-                var d = new Date();
-                d.setTime(d.getTime() + (1*24*60*60*1000));
-                var expires = ";expires="+ d.toUTCString();
-                // set cookie
-                document.cookie = "user="+user_data+expires+";path=/";
-
                 alert("Your data has been updated!");
-                window.location = '/';
+                window.location = '/admin/users/';
             }
         },
 
         getData: function () {
             var xhr = new XMLHttpRequest()
             var self = this
-            xhr.open('GET', local+'users/'+userVals.user_id)
+            xhr.open('GET', local+'users/'+ourId)
             xhr.onload = function () {
                 // Get values to show
                 self.values = (JSON.parse(xhr.responseText))[0];
+                this.values = (JSON.parse(xhr.responseText))[0];
+                
                 var date = new Date(self.values.date_of_birth);
                 var date = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
                 // Place values in fields
                 document.getElementById('username').value = self.values.username;
                 document.getElementById('email').value = self.values.email;
                 document.getElementById('date').value = date;
+                if(self.values.boolean_banned == 0) {
+                    $("#banned_n").prop("checked", true);
+                }
+                else {
+                    $("#banned_y").prop("checked", true);
+                }
             }
             xhr.send()
         }

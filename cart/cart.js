@@ -54,7 +54,7 @@ function emptyCart()
 var parsedData = getParsedCartData();
 Vue.component('product-list',
 {
-  props: ['id', 'name', 'description', 'price', 'index'],
+  props: ['id', 'name', 'description', 'price', 'image', 'index'],
   template: '#product-template'
 });
 

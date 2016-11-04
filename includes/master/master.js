@@ -34,10 +34,16 @@ function getCookie(name) {
 
 if(document.cookie != "") {
     if(getCookie("user") != undefined) {
-      var parts = (document.cookie.split("user="))[1];
-      var userVals = JSON.parse(parts);
-      if(userVals) {
+    var parts = (document.cookie.split("user="))[1];
+    var userVals = JSON.parse(parts);
+
+    if(userVals) {
+      if(userVals.admin === 1){
+        user = true;
+        admin = true;
+      }else {
         user = true;
       }
     }
+  }
 }

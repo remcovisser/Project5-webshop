@@ -4,9 +4,15 @@
     <body>
         <div id="content">
           <div id="demo">
-              <input type="text" id="username" placeholder="username" />
-              <input type="password" id="password" placeholder="password" />
-              <button v-on:click="login" name="login">Login</button>
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" />  
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password"/>  
+              </div>
+              <button v-on:click="login" class="btn btn-default" name="login">Login</button>
           </div>
         </div>
     </body>
@@ -32,7 +38,7 @@ var demo = new Vue({
         var password = document.getElementById('password').value;
 
         if(username == "" || password == ""){
-            console.log("Een veld is leeg.");
+            alert("A field was left empty.");
         }
         else {
             var xhrExist = new XMLHttpRequest();
@@ -41,21 +47,20 @@ var demo = new Vue({
             xhrExist.onload = function () {
                 // Response text is empty or an object..
                 var exists = JSON.parse(xhrExist.responseText);
-
                 if(exists[0]){
                     // jsonstring for the data in the cookie
                     var d = exists[0];
-                    var user_data = JSON.stringify({ user_id: d.user_id, username : d.username, email : d.email, date : d.date_of_birth });
+                    var user_data = JSON.stringify({ user_id: d.user_id, username : d.username, email : d.email, date : d.date_of_birth, admin : d.admin });
                     // set expire date (1 day)
                     var d = new Date();
                     d.setTime(d.getTime() + (1*24*60*60*1000));
                     var expires = ";expires="+ d.toUTCString();
                     // set cookie
-                    document.cookie = "user="+user_data+expires+";path=/;";
+                    document.cookie = "user="+user_data+expires+";path=/";
                     window.location = '/';
                 }
                 else {
-                    console.log("Bestaat niet.");
+                    alert("Wrong username / password.");
                 }
             }
             xhrExist.send();

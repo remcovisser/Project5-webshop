@@ -6,11 +6,23 @@
     <body>
       <div id="content">
         <div id="demo">
-            <input type="text" id="username" placeholder="username" />
-            <input type="password" id="password" placeholder="password" />
-            <input type="email" id="email" placeholder="email"/>
-            <input type="text" id="date" placeholder="date"/>
-            <button v-on:click="saveData" name="save">Registreren</button>
+            <div class="form-group">
+                    <label for="Username">Username</label>
+                    <input type="text" class="form-control" id="username" />  
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password"/>  
+                </div>
+                <div class="form-group">
+                    <label for="email">Emailaddress</label>
+                    <input type="email" class="form-control" id="email"/> 
+                </div>
+                <div class="form-group">
+                    <label for="date">Date of birth</label>
+                    <input type="text" class="form-control" id="date"/>
+                </div>
+            <button v-on:click="saveData" class="btn btn-default" name="save">Registreren</button>
         </div>
       </div>
     </body>
@@ -79,7 +91,7 @@ var demo = new Vue({
                     xhr.open('POST', local+'/users/create');
                     // Send our values
                     xhr.send(values);
-
+                    alert("You succesfully registered!");
                     window.location = '/user/login.html';
                 }
             }

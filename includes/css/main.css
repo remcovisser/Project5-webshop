@@ -30,8 +30,13 @@ body {
   width:100%;
 }
 
-.twentyfive {
+.twenty {
   width:20%;
+  float:left;
+}
+
+.twentyfive {
+  width:25%;
   float:left;
 }
 
@@ -83,9 +88,15 @@ body {
   width:50% !important;
 }
 
-.seventyfive {
+.seventy {
   width:70%;
   float:right;
+}
+
+.seventyfive {
+  width:70%;
+  float:left;
+  margin-left:5%;
 }
 
 .hundred {
@@ -182,4 +193,8 @@ footer  p {
 
 .alert-success, .alert-info, .alert-warning, .alert-danger {
   display: none;
+}
+
+.text-centered {
+  text-align:center;
 }
