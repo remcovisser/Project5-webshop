@@ -71,11 +71,6 @@ $(document).ready(function() {
       document.title += 'products';
 });
 
-
-
-var local = 'http://localhost:8080/products';
-var live  = 'http://95.85.32.165:8080/users';
-
 Vue.component('product-list',
 {
   props: ['id', 'name', 'description', 'price', 'image', 'index'],
@@ -96,7 +91,7 @@ var product = new Vue({
     fetchData: function () {
       var xhr = new XMLHttpRequest()
       var self = this
-      xhr.open('GET', local)
+      xhr.open('GET', local+'/products')
       xhr.onload = function () {
         self.values = JSON.parse(xhr.responseText)
         self.modifiedValues = self.values;
