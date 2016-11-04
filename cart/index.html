@@ -1,0 +1,37 @@
+<html>
+    <head></head>
+    <body>
+
+        <div id="content">
+          <button onclick="addToCartClicked(10)">Add to cart</button>
+          <button onclick="emptyCart()">Empty cart</button>
+
+
+          <div id="cart">
+            <template id="product-template">
+              <a href="/products/{{id}}" class="prod_container">
+                  <div class="product">
+                      <img src="http://placehold.it/350x150" alt="Afbeelding"/>
+                      <h3>{{name}}</h3>
+                      <p class="description"><i>{{description}}</i></p>
+                      <p class="price">&euro;  {{price}},-</p>
+                  </div>
+                  <div v-if="(index + 1) % 4 == 0" style="clear:both;">
+                  </div>
+            </a>
+            </template>
+            <div class="seventyfive">
+              <h2>Products</h2>
+              <div class="products_container">
+                <product-list v-for="(key, val) in modifiedValues" :id="val.product_id" :name="val.p_name" :description="val.p_description" :price="val.p_price" :index="key"></product-list>
+              </div>
+            </div>
+          </div>
+          <div style="clear:both"></div>
+        </div>
+
+    </body>
+</html>
+
+<script src="../includes/master/master.js"></script>
+<script src="cart.js"></script>

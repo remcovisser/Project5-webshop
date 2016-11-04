@@ -36,7 +36,7 @@ body {
 }
 
 .user_panel {
-  float:right; 
+  float:right;
   padding:4px 0;
 }
 
@@ -178,4 +178,8 @@ footer  p {
 /* Trashy helpers */
 .mt20 {
   margin-top:20px;
+}
+
+.alert-success, .alert-info, .alert-warning, .alert-danger {
+  display: none;
 }
