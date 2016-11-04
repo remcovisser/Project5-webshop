@@ -5,7 +5,7 @@
     <div id="content">
       <div class="full">
       <!-- Filter -->
-        <div class="twentyfive filter">
+        <div class="twenty filter">
           <h2>Filters</h2>
           <h3>Filter by type</h3>
           <div class="btn-group" role="group">
@@ -47,14 +47,13 @@
                 <div class="product">
                     <img src="{{image}}" alt="Afbeelding"/>
                     <h3>{{name}}</h3>
-                    <p class="description"><i>{{description}}</i></p>
                     <p class="price">&euro;  {{price}},-</p>
                 </div>
                 <div v-if="(index + 1) % 4 == 0" style="clear:both;">
                 </div>
           </a>
           </template>
-          <div class="seventyfive">
+          <div class="seventy">
             <h2>Products</h2>
             <div class="products_container">
               <product-list v-for="(key, val) in modifiedValues" :id="val.product_id" :name="val.p_name" :description="val.p_description" :price="val.p_price" :image="val.p_image" :index="key"></product-list>

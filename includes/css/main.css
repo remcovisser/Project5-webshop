@@ -30,8 +30,13 @@ body {
   width:100%;
 }
 
-.twentyfive {
+.twenty {
   width:20%;
+  float:left;
+}
+
+.twentyfive {
+  width:25%;
   float:left;
 }
 
@@ -83,9 +88,15 @@ body {
   width:50% !important;
 }
 
-.seventyfive {
+.seventy {
   width:70%;
   float:right;
+}
+
+.seventyfive {
+  width:70%;
+  float:left;
+  margin-left:5%;
 }
 
 .hundred {
@@ -178,4 +189,8 @@ footer  p {
 /* Trashy helpers */
 .mt20 {
   margin-top:20px;
+}
+
+.text-centered {
+  text-align:center;
 }
