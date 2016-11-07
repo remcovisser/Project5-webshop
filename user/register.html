@@ -8,21 +8,21 @@
         <div id="demo">
             <div class="form-group">
                     <label for="Username">Username</label>
-                    <input type="text" class="form-control" id="username" />  
+                    <input type="text" class="form-control" id="username" />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password"/>  
+                    <input type="password" class="form-control" id="password"/>
                 </div>
                 <div class="form-group">
                     <label for="email">Emailaddress</label>
-                    <input type="email" class="form-control" id="email"/> 
+                    <input type="email" class="form-control" id="email"/>
                 </div>
                 <div class="form-group">
                     <label for="date">Date of birth</label>
                     <input type="text" class="form-control" id="date"/>
                 </div>
-            <button v-on:click="saveData" class="btn btn-default" name="save">Registreren</button>
+            <button v-on:click="saveData" id="submitFormButton" class="btn btn-default" name="save">Registreren</button>
         </div>
       </div>
     </body>
@@ -30,12 +30,8 @@
 
 <script src="../includes/master/master.js"></script>
 <script src="../includes/js/md5.js"></script>
+<script src="validate.js"></script>
 <script>
-
-function isValidDate(dateString) {
-  var regEx = /^\d{4}-\d{2}-\d{2}$/;
-  return dateString.match(regEx) != null;
-}
 
 $(document).ready(function() {
       document.title += 'register';
@@ -55,13 +51,16 @@ var demo = new Vue({
         var date     = document.getElementById('date').value;
 
         if(username == "" || password == "" || email == "" || date == ""){
-            alert("Je hebt een veld leeggelaten.");
+            message("danger", "Please fill in al the fields.");
         }
         else if(password.length < 5) {
-            alert("Password has to be at least 5 characters")
+            message("danger", "Password has to be at least 5 characters.");
         }
-        else if(!isValidDate(date)) {
-            alert("Please enter a valid date (yyyy-mm-dd)");
+        else if(!validateEmail(email)) {
+          message("danger", "Please enter a valid email");
+        }
+        else if(!validateDate(date)) {
+            message("danger", "Please enter a valid date (yyyy-mm-dd)");
         }
         else {
             var xhrExist = new XMLHttpRequest();
@@ -71,7 +70,7 @@ var demo = new Vue({
                 var exists = JSON.parse(xhrExist.responseText);
 
                 if(exists[0]){
-                    alert("Username in gebruik.")
+                    message("danger", "Username has been tanken.");
                 }
                 else {
                     // MD5 the password
@@ -83,7 +82,7 @@ var demo = new Vue({
                         email : email,
                         date_of_birth : date
                     };
-                    
+
                     // Convert object to jsonstring
                     values = JSON.stringify(values);
                     // HTTP post request
@@ -91,7 +90,6 @@ var demo = new Vue({
                     xhr.open('POST', local+'/users/create');
                     // Send our values
                     xhr.send(values);
-                    alert("You succesfully registered!");
                     window.location = '/user/login.html';
                 }
             }
@@ -100,4 +98,6 @@ var demo = new Vue({
     }
   }
 })
+
+
 </script>

@@ -6,13 +6,13 @@
           <div id="demo">
               <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" />  
+                <input type="text" class="form-control" id="username" />
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password"/>  
+                <input type="password" class="form-control" id="password"/>
               </div>
-              <button v-on:click="login" class="btn btn-default" name="login">Login</button>
+              <button v-on:click="login" id="submitFormButton" class="btn btn-default" name="login">Login</button>
           </div>
         </div>
     </body>
@@ -38,7 +38,7 @@ var demo = new Vue({
         var password = document.getElementById('password').value;
 
         if(username == "" || password == ""){
-            alert("A field was left empty.");
+          message("danger", "A field was left empty.");
         }
         else {
             var xhrExist = new XMLHttpRequest();
@@ -60,7 +60,7 @@ var demo = new Vue({
                     window.location = '/';
                 }
                 else {
-                    alert("Wrong username / password.");
+                    message("danger", "Wrong username / password.");
                 }
             }
             xhrExist.send();

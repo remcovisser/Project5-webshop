@@ -22,7 +22,13 @@ document.onreadystatechange = function () {
       $("#content").after(data);
     });
 
-    ready = true;
+
+    $(".form-control").keyup(function(event){
+        if(event.keyCode == 13){
+            $("#submitFormButton").click();
+        }
+    });
+
   }
 };
 

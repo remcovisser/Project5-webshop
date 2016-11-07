@@ -6,22 +6,22 @@
             <div id="demo">
                 <div class="form-group">
                     <label for="Username">Username</label>
-                    <input type="text" class="form-control" id="username" />  
+                    <input type="text" class="form-control" id="username" />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password"/>  
+                    <input type="password" class="form-control" id="password"/>
                 </div>
                 <div class="form-group">
                     <label for="email">Emailaddress</label>
-                    <input type="email" class="form-control" id="email"/> 
+                    <input type="email" class="form-control" id="email"/>
                 </div>
                 <div class="form-group">
                     <label for="date">Date of birth</label>
                     <input type="text" class="form-control" id="date" disabled/>
                 </div>
-                
-                <button v-on:click="saveData" class="btn btn-default" name="save">Save changes</button>
+
+                <button v-on:click="saveData" id="submitFormButton" class="btn btn-default" name="save">Save changes</button>
             </div>
         </div>
     </body>
@@ -29,13 +29,8 @@
 
 <script src="../includes/master/master.js"></script>
 <script src="../includes/js/md5.js"></script>
+<script src="validate.js"></script>
 <script>
-
-function isValidDate(dateString) {
-  var regEx = /^\d{4}-\d{2}-\d{2}$/;
-  return dateString.match(regEx) != null;
-}
-
 $(document).ready(function() {
       document.title += 'user edit';
 });
@@ -54,10 +49,13 @@ if(user){
             var email    = document.getElementById('email').value;
 
             if(username == "" || password == "" || email == ""){
-                alert("Een veld is leeg.");
+                message("danger", "Please fill in al the fields");
             }
             else if(password.length < 5) {
-                alert("Password has to be at least 5 characters")
+                message("danger", "Password has to be atleast 5 characters");
+            }
+            else if(!validateEmail(email)) {
+              message("danger", "Please enter a valid email");
             }
             else {
                 // MD5 the password
@@ -109,9 +107,9 @@ if(user){
             xhr.send()
         }
     }
-    })
+})
 
-    demo.getData();
+demo.getData();
 }
 else {
     window.location = '/';

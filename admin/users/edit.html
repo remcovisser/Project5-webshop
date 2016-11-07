@@ -6,15 +6,15 @@
             <div id="demo">
                 <div class="form-group">
                     <label for="Username">Username</label>
-                    <input type="text" class="form-control" id="username" />  
+                    <input type="text" class="form-control" id="username" />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password"/>  
+                    <input type="password" class="form-control" id="password"/>
                 </div>
                 <div class="form-group">
                     <label for="email">Emailaddress</label>
-                    <input type="email" class="form-control" id="email"/> 
+                    <input type="email" class="form-control" id="email"/>
                 </div>
                 <div class="form-group">
                     <label for="date">Date of birth</label>
@@ -33,7 +33,7 @@
                         </label>
                     </div>
                 </div>
-                <button v-on:click="saveData" class="btn btn-default" name="save">Save changes</button>
+                <button v-on:click="saveData" id="submitFormButton" class="btn btn-default" name="save">Save changes</button>
             </div>
         </div>
     </body>
@@ -41,20 +41,15 @@
 
 <script src="../../includes/master/master.js"></script>
 <script src="../../includes/js/md5.js"></script>
+<script src="../../user/validate.js"></script>
 <script>
-
-function isValidDate(dateString) {
-  var regEx = /^\d{4}-\d{2}-\d{2}$/;
-  return dateString.match(regEx) != null;
-}
-
 $(document).ready(function() {
       document.title += 'user edit';
 });
 
 var ourId = (window.location.href.split('?id='))[1];
 
-if(admin){    
+if(admin){
     var demo = new Vue({
     el: '#demo',
     data : {
@@ -70,7 +65,10 @@ if(admin){
             var boolean_banned = $('input[name=banned]:checked').val();
 
             if(username == "" || email == ""){
-                alert("Een veld is leeg.");
+                message("danger", "Please fill in al the fields");
+            }
+            else if(!validateEmail(email)) {
+              message("danger", "Please enter a valid email");
             }
             else {
                 if(password.length > 4) {
@@ -110,7 +108,7 @@ if(admin){
                 // Get values to show
                 self.values = (JSON.parse(xhr.responseText))[0];
                 this.values = (JSON.parse(xhr.responseText))[0];
-                
+
                 var date = new Date(self.values.date_of_birth);
                 var date = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
                 // Place values in fields
