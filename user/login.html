@@ -38,7 +38,7 @@ var demo = new Vue({
         var password = document.getElementById('password').value;
 
         if(username == "" || password == ""){
-          message("danger", "A field was left empty.");
+          message("danger", "Please fill in all the fields.");
         }
         else {
             var xhrExist = new XMLHttpRequest();
