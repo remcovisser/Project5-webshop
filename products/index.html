@@ -35,7 +35,7 @@
 
           <div class="search_holder">
             <h3>Search</h3>
-            <input type="text" name="search_field" class="form-control" placeholder="Search for something.." onkeydown="product.filter(this.value)"/>
+            <input type="text" id="search_field" class="form-control" placeholder="Search for something.." onkeydown="product.filter(this.value)"/>
           </div>
         </div>
 
@@ -100,6 +100,7 @@ var product = new Vue({
         if(search)
         {
           var search = search.replace(/\+/g, ' ');
+          document.getElementById('search_field').value = search;
           product.filter(search);
         }
       }
