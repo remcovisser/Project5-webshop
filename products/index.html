@@ -93,7 +93,7 @@ var product = new Vue({
       var self = this
       xhr.open('GET', local+'/products')
       xhr.onload = function () {
-        self.values = JSON.parse(xhr.responseText)
+        self.values = JSON.parse(xhr.responseText);
         self.modifiedValues = self.values;
         self.maxFilterPrice = Math.max.apply(Math,self.values.map(function(o){return o.p_price;}))
       }

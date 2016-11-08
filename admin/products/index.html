@@ -6,21 +6,23 @@
         <ul>
           <table class="table">
             <tr>
-              <th>Username</th>
-              <th>Emailaddress</th>
-              <th>Date of birth</th>
-              <th>Banned</th>
+              <th><a class="btn btn-primary" href="/admin/products/create.html">Create</a></th>
+              <th>Name</th>
+              <th>Brand</th>
+              <th>Model</th>
+              <th>Price</th>
               <th>Update</th>
               <th>Delete</th>
             </tr>
           <tbody id="demo" v-for="val in values">
               <tr>
-                <td>{{val.username}}</td>
-                <td>{{val.email}}</td>
-                <td>{{val.date_of_birth}}</td>
-                <td>{{val.boolean_banned}}</td>
-                <td><a class="btn btn-primary" href="/admin/users/edit.html?id={{val.user_id}}" name="edit">Update</a></td>
-                <td><button data-userid="{{val.id}}" class="btn" name="delete" v-on:click="deleteData(this)">Delete</button></td>
+                <td><img src="{{val.p_image}}" style="max-width:150px;" alt="{{val.p_name}}" class="full"/></td>
+                <td>{{val.p_name}}</td>
+                <td>{{val.p_brand}}</td>
+                <td>{{val.p_model}}</td>
+                <td>&euro;{{val.p_price}}</td>
+                <td><a class="btn btn-primary" href="/admin/products/edit.html?id={{val.product_id}}" name="edit">Update</a></td>
+                <td><button data-productid="{{val.product_id}}" class="btn" name="delete" v-on:click="deleteData(this)">Delete</button></td>
               </tr>
           </tbody>
           </table>
@@ -41,29 +43,21 @@ if(admin){
       fetchData: function () {
         var xhr = new XMLHttpRequest()
         var self = this
-        xhr.open('GET', local + 'users')
+        xhr.open('GET', local + 'products')
         xhr.onload = function () {
-          self.values = JSON.parse(xhr.responseText)
-          $.each(self.values, function(k,v) {
-            if(v.boolean_banned === 0) {
-              v.boolean_banned = "No";
-            }
-            else {
-              v.boolean_banned = "Yes";
-            }
-          })
+          self.values = JSON.parse(xhr.responseText);
         }
         xhr.send();
       },
       deleteData: function (thisEl) {
-        var id = thisEl.val.user_id;
-        var localDelete = local+'users/'+id;
+        var id = thisEl.val.product_id;
+        var localDelete = local+'products/'+id;
         // HTTP post request
         var xhr = new XMLHttpRequest();
         xhr.open('DELETE', localDelete);
         // Send our values
         xhr.send();
-        alert("User was deleted.");
+        alert("Product was deleted.");
         window.location = window.location;
       }
     }
