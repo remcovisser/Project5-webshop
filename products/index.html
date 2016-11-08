@@ -140,8 +140,8 @@ var product = new Vue({
       var self = this;
       if (event.keyCode == 13)
       {
-        self.minFilterPrice = parseInt(document.getElementById('minPrice').value);
-        self.maxFilterPrice = parseInt(document.getElementById('maxPrice').value);
+        self.minFilterPrice = parseFloat(document.getElementById('minPrice').value);
+        self.maxFilterPrice = parseFloat(document.getElementById('maxPrice').value);
 
         this.modifiedValues = this.values.filter(function(value)
         {
