@@ -1,48 +1,60 @@
 $(function() {
     document.title += 'Cart test page';
 });
+$.cookie.json = true;
+var cookie = $.cookie('cart');
+var cartData = [];
 
 function addToCartClicked(product_id)
 {
+  addItemToCar(product_id);
   message("success", "Item has been added to your cart");
-  getProductInfo(product_id);
 }
 
-function getProductInfo(product_id)
+function getProductInfo(product_id, quantity = null)
 {
-  var xhrProduct = new XMLHttpRequest();
-  xhrProduct.open('GET', local + '/products/' + product_id);
-  xhrProduct.onload = function () {
-    addItemToCar(JSON.parse(xhrProduct.responseText));
-  }
-  xhrProduct.send();
+  $.get(local + '/products/' + product_id, function(product) {
+      if(quantity != null) {
+          product[0]['quantity'] = quantity;
+      }
+      cartData.push(product[0]);
+  });
 }
 
-function addItemToCar(productInfo)
+function addItemToCar(product_id)
 {
-  if($.cookie('cart') != undefined) {
-    var value = $.cookie('cart') + "&" + JSON.stringify(productInfo[0]);
+  var newItem = true;
+  if(cookie != undefined) {
+    for(var i = 0; i < cookie.length; i++) {
+      if(cookie[i]["p"] == product_id) {
+        cookie[i]["q"]++;
+        newItem = false;
+        var values = cookie;
+      }
+    }
+    if(newItem) {
+      var product = {"p":product_id, "q":1};
+      cookie.push(product);;
+      var values = cookie;
+    }
   } else {
-    var value = JSON.stringify(productInfo[0]);
+    var values = [{"p":product_id, "q":1}];
   }
-  $.cookie('cart', value, { expires: 7, path: '/' });
-  product.modifiedValues = getParsedCartData();
+
+  $.cookie('cart', values, { expires: 7, path: '/' });
+  cookie = $.cookie('cart');
 }
 
-function getParsedCartData()
+function getProductsInCart()
 {
-  var parsedData = [];
-  if($.cookie('cart') == undefined) {
+  if(cookie == undefined) {
     message("danger", "Your cart is empty", 2000);
   } else {
-    var DataArray = $.cookie('cart').split("&");
-    for (i = 0; i < DataArray.length; i++) {
-      parsedData.push(JSON.parse(DataArray[i]));
+    for (i = 0; i < cookie.length; i++) {
+        getProductInfo(cookie[i]["p"], cookie[i]["q"]);
     }
   }
-  return parsedData;
 }
-
 
 function emptyCart()
 {
@@ -51,10 +63,11 @@ function emptyCart()
   product.modifiedValues = [];
 }
 
-var parsedData = getParsedCartData();
+getProductsInCart();
+var parsedData = cartData;
 Vue.component('product-list',
 {
-  props: ['id', 'name', 'description', 'price', 'image', 'index'],
+  props: ['id', 'name', 'description', 'price', 'image', 'quantity', 'index'],
   template: '#product-template'
 });
 
