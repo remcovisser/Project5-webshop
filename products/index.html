@@ -93,9 +93,15 @@ var product = new Vue({
       var self = this
       xhr.open('GET', local+'/products')
       xhr.onload = function () {
-        self.values = JSON.parse(xhr.responseText)
+        self.values = JSON.parse(xhr.responseText);
         self.modifiedValues = self.values;
         self.maxFilterPrice = Math.max.apply(Math,self.values.map(function(o){return o.p_price;}))
+        var search = (window.location.href.split('?search='))[1];
+        if(search)
+        {
+          var search = search.replace(/\+/g, ' ');
+          product.filter(search);
+        }
       }
       xhr.send()
     },
@@ -118,9 +124,7 @@ var product = new Vue({
 
     filter: function(search)
     {
-      var self = this;
-      if (event.keyCode == 13)
-      {
+        var self = this;
         this.modifiedValues = this.values.filter(function(value)
         {
           if(value.p_name.toLowerCase().indexOf(search.toLowerCase()) >= 0)
@@ -132,7 +136,6 @@ var product = new Vue({
             return false;
           }
         })
-      }
     },
 
     filterPrice: function()
@@ -140,8 +143,8 @@ var product = new Vue({
       var self = this;
       if (event.keyCode == 13)
       {
-        self.minFilterPrice = parseInt(document.getElementById('minPrice').value);
-        self.maxFilterPrice = parseInt(document.getElementById('maxPrice').value);
+        self.minFilterPrice = parseFloat(document.getElementById('minPrice').value);
+        self.maxFilterPrice = parseFloat(document.getElementById('maxPrice').value);
 
         this.modifiedValues = this.values.filter(function(value)
         {
@@ -160,4 +163,5 @@ var product = new Vue({
 })
 
 product.fetchData();
+
 </script>
