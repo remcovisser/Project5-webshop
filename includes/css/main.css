@@ -198,3 +198,11 @@ footer  p {
 .text-centered {
   text-align:center;
 }
+
+.searchBox {
+  margin-top: 5%;
+  text-align: center;
+  max-width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
