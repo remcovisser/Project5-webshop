@@ -27,15 +27,24 @@
           <div class="price_holder">
             <h3>Price</h3>
               <div class="form-group">
-                <input type="text" id= "minPrice" class="form-control fifty" placeholder="{{minFilterPrice}}" v-on:keydown=" filterPrice()">
-                <input type="text" id= "maxPrice" class="form-control fifty" placeholder="{{maxFilterPrice}}" v-on:keydown=" filterPrice()">
+                <div class="input_holder fifty">
+                    <input type="text" id= "minPrice" class="form-control" placeholder="{{minFilterPrice}}" v-on:keydown=" filterPrice()">
+                    <span class="enter">enter</span>
+                 </div>
+                  <div class="input_holder fifty">
+                    <input type="text" id= "maxPrice" class="form-control" placeholder="{{maxFilterPrice}}" v-on:keydown=" filterPrice()">
+                    <span class="enter">enter</span>
+                </div>
                 <div style="clear:both;"></div>
               </div>
           </div>
 
           <div class="search_holder">
             <h3>Search</h3>
-            <input type="text" id="search_field" class="form-control" placeholder="Search for something.." onkeydown="product.filter(this.value)"/>
+            <div class="input_holder">
+              <input type="text" id="search_field" class="form-control" placeholder="Search for something.." onkeydown="product.filter(this.value)"/>
+              <span class="enter">enter</span>
+            </div>
           </div>
         </div>
 
@@ -68,7 +77,17 @@
 <script src="../includes/master/master.js"></script>
 <script>
 $(document).ready(function() {
-      document.title += 'products';
+  
+  $("#minPrice, #maxPrice, #search_field").focus(function() {
+    var holder = $(this).parent();
+    $(holder).find(".enter").show();
+  });
+
+  $("#minPrice, #maxPrice, #search_field").focusout(function() {
+    $("#minPrice, #maxPrice, #search_field").parent().find(".enter").hide();
+  });
+
+
 });
 
 Vue.component('product-list',
@@ -126,17 +145,19 @@ var product = new Vue({
     filter: function(search)
     {
         var self = this;
-        this.modifiedValues = this.values.filter(function(value)
-        {
-          if(value.p_name.toLowerCase().indexOf(search.toLowerCase()) >= 0)
+        if (event.keyCode == 13) {
+          this.modifiedValues = this.values.filter(function(value)
           {
-            return true;
-          }
-          else
-          {
-            return false;
-          }
-        })
+            if(value.p_name.toLowerCase().indexOf(search.toLowerCase()) >= 0)
+            {
+              return true;
+            }
+            else
+            {
+              return false;
+            }
+          })
+        }
     },
 
     filterPrice: function()
@@ -146,6 +167,13 @@ var product = new Vue({
       {
         self.minFilterPrice = parseFloat(document.getElementById('minPrice').value);
         self.maxFilterPrice = parseFloat(document.getElementById('maxPrice').value);
+
+        if(isNaN(self.minFilterPrice)){
+          self.minFilterPrice = 0;
+        }
+        if(isNaN(self.maxFilterPrice)){
+          self.maxFilterPrice = Math.max.apply(Math,self.values.map(function(o){return o.p_price;}));
+        }
 
         this.modifiedValues = this.values.filter(function(value)
         {

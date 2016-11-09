@@ -1,28 +1,18 @@
 <html>
-  <head>
-
-  </head>
+  <head></head>
   <body>
-
     <div id="content">
-        <div class="searchBox">         
+        <div class="searchBox text-centered">         
           <h1>Find your model</h1>
           <form action="/products">
           <input type="text" name="search" class="form-control" placeholder="Search for something.."/>   
           </form>
-          <br></br>      
+          <p>   
           Welcome to the <b>Snelle Jelle</b> webshop. We provide you with the fastest cars around. 
-          Type in the model you are looking for or click Products to get an overview of all the available cars.
-          <br></br> <br></br>
+          Type in the model you are looking for or click <a href="/products/">Products</a> to get an overview of all the available cars.
+          </p>
         </div>
-      <div style="clear:both;"></div>
     </div>
-
     <script src="../includes/master/master.js"></script>
   </body>
 </html>
-<script>
-$(document).ready(function() {
-      document.title += 'Home';
-  });
-</script>
