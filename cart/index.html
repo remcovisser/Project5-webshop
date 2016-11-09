@@ -10,13 +10,12 @@
                   <div class="product">
                       <img src="{{image}}" alt="Afbeelding"/>
                       <h3>{{name}}</h3>
-                      <p class="description"><i>{{description}}</i></p>
                       <p class="price">&euro;  {{price}},-</p>
-                      <p class="quantity">Quantity: {{quantity}}</p>
-                  </div>
-                  <div v-if="(index + 1) % 4 == 0" style="clear:both;">
-                  </div>
-            </a>
+                    </a>
+                    <input class="quantity" value="{{quantity}}" type="number" onKeyUp="quantityChange(this.value, {{id}})">
+                </div>
+                <div v-if="(index + 1) % 4 == 0" style="clear:both;">
+                </div>
             </template>
             <div class="seventyfive">
               <h2>Products</h2>
@@ -26,6 +25,7 @@
             </div>
           </div>
           <div style="clear:both"></div>
+          <p id="totalPrice">Totalprice: </p>
         </div>
     </body>
 </html>

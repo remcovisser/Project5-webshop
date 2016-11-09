@@ -22,7 +22,6 @@ document.onreadystatechange = function () {
       $("#content").after(data);
     });
 
-
     $(".form-control").keyup(function(event){
         if(event.keyCode == 13){
             $("#submitFormButton").click();

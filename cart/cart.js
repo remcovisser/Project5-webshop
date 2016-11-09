@@ -1,14 +1,24 @@
 $(function() {
     document.title += 'Cart test page';
+
+    //sumCart();
 });
+
 $.cookie.json = true;
 var cookie = $.cookie('cart');
 var cartData = [];
 
-function addToCartClicked(product_id)
+function getProductsInCart(callbackSum)
 {
-  addItemToCar(product_id);
-  message("success", "Item has been added to your cart");
+  if(cookie == undefined) {
+    message("danger", "Your cart is empty", 2000);
+  } else {
+    for (i = 0; i < cookie.length; i++) {
+        var data = getProductInfo(cookie[i]["p"], cookie[i]["q"]);
+    }
+    callbackSum()
+    return data;
+  }
 }
 
 function getProductInfo(product_id, quantity = null)
@@ -19,6 +29,13 @@ function getProductInfo(product_id, quantity = null)
       }
       cartData.push(product[0]);
   });
+  return cartData
+}
+
+function addToCartClicked(product_id)
+{
+  addItemToCar(product_id);
+  message("success", "Item has been added to your cart");
 }
 
 function addItemToCar(product_id)
@@ -45,17 +62,6 @@ function addItemToCar(product_id)
   cookie = $.cookie('cart');
 }
 
-function getProductsInCart()
-{
-  if(cookie == undefined) {
-    message("danger", "Your cart is empty", 2000);
-  } else {
-    for (i = 0; i < cookie.length; i++) {
-        getProductInfo(cookie[i]["p"], cookie[i]["q"]);
-    }
-  }
-}
-
 function emptyCart()
 {
   message("success", "Your cart has been emptied");
@@ -63,8 +69,39 @@ function emptyCart()
   product.modifiedValues = [];
 }
 
-getProductsInCart();
-var parsedData = cartData;
+function quantityChange(quantity, product_id)
+{
+  var values = [];
+  for(var i = 0; i < cookie.length; i++) {
+    if(quantity <= 0) {
+      if(cookie[i]["p"] != product_id) {
+        values.push({"p":cookie[i]["p"], "q":cookie[i]["q"]});
+      }
+    } else {
+      if(cookie[i]["p"] == product_id) {
+          cookie[i]["q"] = quantity;
+          values = cookie;
+        }
+      }
+    }
+    message("success", "Cart has been updated", 5000)
+    $.cookie('cart', values, { expires: 7, path: '/' });
+    cartData = [];
+    cartData = getProductsInCart(sumCart);
+}
+
+function sumCart()
+{
+  var sum = 0;
+  for(var i = 0; i < cartData.length; i++) {
+    sum += (cartData[i]["p_price"] * cartData[i]["quantity"]);
+  }
+  $("#totalPrice").html(sum);
+  return sum;
+}
+
+
+cartData = getProductsInCart(sumCart);
 Vue.component('product-list',
 {
   props: ['id', 'name', 'description', 'price', 'image', 'quantity', 'index'],
@@ -74,6 +111,6 @@ Vue.component('product-list',
 var product = new Vue({
   el: '#cart',
   data : {
-    modifiedValues : parsedData
+    modifiedValues : cartData
   },
 });
