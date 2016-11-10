@@ -1,35 +1,36 @@
 $(function() {
     document.title += 'Cart test page';
-
-    //sumCart();
+    sumCart();
 });
 
 $.cookie.json = true;
 var cookie = $.cookie('cart');
+var sum = 0;
 var cartData = [];
 
-function getProductsInCart(callbackSum)
+
+function getProductsInCart()
 {
   if(cookie == undefined) {
     message("danger", "Your cart is empty", 2000);
   } else {
     for (i = 0; i < cookie.length; i++) {
-        var data = getProductInfo(cookie[i]["p"], cookie[i]["q"]);
-    }
-    callbackSum()
-    return data;
-  }
+       getProductInfo(cookie[i]["p"], cookie[i]["q"], function(result) {
+          cartData.push(result);
+          sumCart(result)
+       });
+     }
+   }
 }
 
-function getProductInfo(product_id, quantity = null)
+function getProductInfo(product_id, quantity, callback)
 {
   $.get(local + '/products/' + product_id, function(product) {
       if(quantity != null) {
           product[0]['quantity'] = quantity;
       }
-      cartData.push(product[0]);
+      callback(product[0]);
   });
-  return cartData
 }
 
 function addToCartClicked(product_id)
@@ -65,8 +66,12 @@ function addItemToCar(product_id)
 function emptyCart()
 {
   message("success", "Your cart has been emptied");
+  $("#totalPrice").html("Totalprice: ");
   $.removeCookie('cart', { path: '/' });
   product.modifiedValues = [];
+  cartData = [];
+  sum = 0;
+  sumCart();
 }
 
 function quantityChange(quantity, product_id)
@@ -87,21 +92,19 @@ function quantityChange(quantity, product_id)
     message("success", "Cart has been updated", 5000)
     $.cookie('cart', values, { expires: 7, path: '/' });
     cartData = [];
-    cartData = getProductsInCart(sumCart);
+      $("#totalPrice").html("Totalprice: 0");
+    getProductsInCart();
 }
 
-function sumCart()
+function sumCart(data)
 {
-  var sum = 0;
-  for(var i = 0; i < cartData.length; i++) {
-    sum += (cartData[i]["p_price"] * cartData[i]["quantity"]);
+  if(data != undefined) {
+    sum += data['p_price'] * data['quantity'];
   }
-  $("#totalPrice").html(sum);
-  return sum;
+  $("#totalPrice").html("Totalprice: " + sum);
 }
 
-
-cartData = getProductsInCart(sumCart);
+getProductsInCart();
 Vue.component('product-list',
 {
   props: ['id', 'name', 'description', 'price', 'image', 'quantity', 'index'],
