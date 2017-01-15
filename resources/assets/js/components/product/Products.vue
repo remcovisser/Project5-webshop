@@ -1,83 +1,82 @@
 <template>
-<div id="wrapper">
-    <div id="content">
+<div class="content-mid">
+    <!-- Filter -->
+    <div class="col-md-3">
+        <h3>Filter by type</h3>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle selection" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Currently sorted by: {{sortValues[sortOption]}}
+           <span class="caret"></span>
+         </button>
+            <ul class="dropdown-menu filters hundred">
+                <button type="button" class="btn btn-default" @click="sortOption='p_price'">Price</button>
+                <button type="button" class="btn btn-default" @click="sortOption='product_id'">Id</button>
+                <button type="button" class="btn btn-default" @click="sortOption='p_name'">Name</button>
+            </ul>
+        </div>
         <div class="full">
-            <div class="twenty filter">
-                <!-- Filter -->
-                <h2>Filters</h2>
-                <h3>Filter by type</h3>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default dropdown-toggle selection" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Currently sorted by: {{sortValues[sortOption]}}
-              <span class="caret"></span>
-            </button>
-                    <ul class="dropdown-menu filters hundred">
-                        <button type="button" class="btn btn-default" @click="sortOption='p_price'">Price</button>
-                        <button type="button" class="btn btn-default" @click="sortOption='product_id'">Id</button>
-                        <button type="button" class="btn btn-default" @click="sortOption='p_name'">Name</button>
-                    </ul>
-                </div>
-                <div class="full">
-                    <button type="button" class="btn btn-default fifty" @click="sort('desc')">Descending</button>
-                    <button type="button" class="btn btn-default fifty" @click="sort()">Ascending</button>
-                    <div style="clear:both;"></div>
-                </div>
+            <button type="button" class="btn btn-default fifty" @click="sort('desc')">Descending</button>
+            <button type="button" class="btn btn-default fifty" @click="sort()">Ascending</button>
+            <div style="clear:both;"></div>
+        </div>
 
-                <div class="price_holder">
-                    <h3>Price</h3>
-                    <div class="form-group">
-                        <div class="input_holder fifty">
-                            <input type="text" id="minPrice" class="form-control" :placeholder="minFilterPrice" v-on:keydown="filterPrice()">
-                            <span class="enter">enter</span>
-                        </div>
-                        <div class="input_holder fifty">
-                            <input type="text" id="maxPrice" class="form-control" :placeholder="maxFilterPrice" v-on:keydown="filterPrice()">
-                            <span class="enter">enter</span>
-                        </div>
-                        <div style="clear:both;"></div>
-                    </div>
+        <div class="price_holder">
+            <h3>Price</h3>
+            <div class="form-group">
+                <div class="input_holder fifty">
+                    <input type="text" id="minPrice" class="form-control" :placeholder="minFilterPrice" v-on:keydown="filterPrice()">
                 </div>
-
-                <div class="search_holder">
-                    <h3>Search</h3>
-                    <div class="input_holder">
-                        <input type="text" id="search_field" class="form-control" placeholder="Search for something.." v-on:keydown="filter()" />
-                        <span class="enter">enter</span>
-                    </div>
+                <div class="input_holder fifty">
+                    <input type="text" id="maxPrice" class="form-control" :placeholder="maxFilterPrice" v-on:keydown="filterPrice()">
                 </div>
+                <div style="clear:both;"></div>
             </div>
+        </div>
 
+        <div class="search_holder">
+            <h3>Search</h3>
+            <div class="input_holder">
+                <input type="text" id="search_field" class="form-control" placeholder="Search for something.." v-on:keydown="filter()" />
+            </div>
+        </div>
+    </div>
 
-            <!-- Prodcuts -->
-            <div class="seventy">
-                <h2 class="title text-center">Products</h2>
-                <div v-for="product in products">
-                    <div class="product">
-                        <a :href="'/products/product.html?id=' + product.product_id">
-                            <img :src="product.p_image" alt="Afbeelding" />
-                            <h3>{{product.p_name}}</h3>
-                            <p class="price">${{product.p_price}},-</p>
-                        </a>
+    <!-- Prodcuts -->
+    <div class="col-md-9">
+        <div class="mid-popular">
+            <div v-for="product in products" class="col-md-3 item-grid simpleCart_shelfItem">
+                <div class="mid-pop">
+                    <div class="pro-img">
+                        <img :src="product.p_image" class="img-responsive" alt="">
+                    </div>
+                    <div class="mid-1">
+                        <div class="women">
+                            <div class="women-top">
+                                <span>Category</span>
+                                <h6 class="product_title">  <a :href="'/products/product.html?id=' + product.product_id">{{ product.p_name}}</a></h6>
+                            </div>
+                            <div class="img item_add">
+                                <a href="">
+                                    <img src="/images/ca.png" alt="">
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="mid-2">
+                            <p><em class="item_price">${{product.p_price}}</em></p>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="clearfix"></div>
 </div>
 </template>
 
 
 <script>
-$(function() {
-    $("#minPrice, #maxPrice, #search_field").focus(function() {
-        var holder = $(this).parent();
-        $(holder).find(".enter").show();
-    });
-    $("#minPrice, #maxPrice, #search_field").focusout(function() {
-        $("#minPrice, #maxPrice, #search_field").parent().find(".enter").hide();
-    });
-});
-
 export default {
     created() {
         var self = this;

@@ -1,44 +1,48 @@
 <template>
-<div class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-            <a class="navbar-brand" href="/">Snelle Jelle</a>
+<div>
+    <div class="header">
+        <div class="container">
+            <div class="head">
+                <div class=" logo">
+                    <a href="/"><img src="/images/logo.png" alt=""></a>
+                </div>
+            </div>
         </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav main_menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/products">Products</a></li>
-                <li><a href="/cart">Cart</a></li>
-            </ul>
-            <ul class="nav">
-                <li class="dropdown user_panel">
-                    <a href="#" class="dropdown-toggle main" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="guest"><a href="/user/register.html">Register</a></li>
-                        <li class="guest"><a href="/user/login.html">Login</a></li>
-                        <li class="admin"><a href="/admin/products">Products</a></li>
-                        <li class="admin"><a href="/admin/users">Users</a></li>
-                        <li class="admin"><a href="/admin/plots">Plots</a></li>
-                        <li class="user"><a href="/user/profile.html">Profile</a></li>
-                        <li class="user logout"><a href="javascript:void(0)">Logout</a></li>
+        <div class="container">
+            <div class="head-top">
+                <div class="col-sm-8 col-md-offset-2 h_menu4">
+                    <nav class="navbar nav_bottom" role="navigation">
+                        <div class="navbar-header nav_2">
+                            <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                              <span class="sr-only">Toggle navigation</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                            <ul class="nav navbar-nav nav_1">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/products">Products</a></li>
+                                <li class="guest"><a href="/user/login.html">Login</a></li>
+                                <li class="guest"><a href="/user/register.html">Register</a></li>
+                                <li class="user"><a href="javascript:void(0)" id="logout">Logout</a></li>
+                                <li class="user"><a href="/user/profile.html">Profile</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-sm-2 search-right">
+                    <ul class="heart">
+                        <li><a href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+                        <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
                     </ul>
-                </li>
-            </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-        <!-- /.navbar-collapse -->
     </div>
-    <!-- /.container-fluid -->
 </div>
 </template>
 
@@ -66,7 +70,7 @@ $(function() {
         }
         $(".user_panel .main").append($.cookie('user').username + " <span class='caret'></span>");
 
-        $(".logout a").on("click", function() {
+        $("#logout").on("click", function() {
             $.removeCookie('user', {
                 path: '/'
             });

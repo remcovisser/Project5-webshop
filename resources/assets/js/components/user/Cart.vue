@@ -1,21 +1,41 @@
 <template>
-<div>
-    <button @click="emptyCart()">Empty cart</button>
-
-    <div class="seventy">
-        <h2 class="title text-center">Cart</h2>
-        <div v-for="product in products">
-            <div class="product">
-                <img :src="product.p_image" alt="Afbeelding" />
-                <h3>{{product.p_name}}</h3>
-                <p class="price">${{product.p_price}},-</p>
-                <input class="quantity" :value="product.quantity" type="number" @keyup="quantityChange(product.product_id, $event)">
+<div class="container">
+    <div class="check-out">
+        <div class="bs-example4" data-example-id="simple-responsive-table">
+            <div class="table-responsive">
+                <table class="table-heading simpleCart_shelfItem">
+                    <tr>
+                        <th class="table-grid">Item</th>
+                        <th>Price</th>
+                        <th>quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    <tr v-for="product in products" class="cart-header">
+                        <td class="ring-in">
+                            <a href="single.html" class="at-in"><img :src="product.p_image" class="img-responsive" :alt="product.p_image"></a>
+                            <div class="sed">
+                                <h5><a href="single.html">{{product.p_name}}</a></h5>
+                                <p>{{product.p_description}}</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </td>
+                        <td>{{product.p_price}}</td>
+                        <td><input class="quantity" :value="product.quantity" type="number" @keyup="quantityChange(product.product_id, $event)"></td>
+                        <td class="item_price">${{product.subtotal}}</td>
+                        <td><button type="button" class="item_add hvr-grow">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Total:</th>
+                        <td>
+                            <p id="totalPrice">${{sum}}</p>
+                        </td>
+                        <td><button @click="emptyCart()" class="item_add hvr-grow">Empty Cart</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
-
-    <div style="clear:both"></div>
-    <p id="totalPrice">{{sum}}</p>
+    <div class="clearfix"></div>
 </div>
 </template>
 
@@ -37,6 +57,7 @@ export default {
                     dataType: 'json',
                     success: function(product) {
                         product[0]['quantity'] = cartCookie[i]["q"];
+                        product[0]['subtotal'] = product[0]['p_price'] * cartCookie[i]["q"]
                         self.products.push(product[0]);
                     }
                 });
@@ -78,6 +99,7 @@ export default {
                         cartCookie[i]["q"] = quantity;
                         values = cartCookie;
                         self.products[i]["quantity"] = quantity;
+                        self.products[i]['subtotal'] = self.products[i]['p_price'] * quantity;
                     }
                 }
             }

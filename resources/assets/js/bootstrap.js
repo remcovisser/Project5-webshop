@@ -10,4 +10,5 @@ window.local = "http://localhost:8080/";
 window.message = require('./helpers/messages').message;
 window.auth = require('./helpers/general').auth;
 window.admin = require('./helpers/general').admin;
+window.helper = require('./helpers/general');
 window.validate = require('./helpers/validater');

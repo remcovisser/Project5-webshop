@@ -1,22 +1,33 @@
 <template>
-<div>
-    <div class="form-group">
-        <label for="Username">Username</label>
-        <input type="text" class="form-control" id="username" :value="user.username" disabled/>
+<div class="container">
+    <div class="login">
+
+        <div class="col-md-6 login-do">
+            <div class="login-mail">
+                <input type="text" placeholder="Username" id="username" :value="user.username" disabled/>
+                <i class="glyphicon glyphicon-user"></i>
+            </div>
+            <div class="login-mail">
+                <input type="password" placeholder="Password" id="password">
+                <i class="glyphicon glyphicon-lock"></i>
+            </div>
+            <div class="login-mail">
+                <input type="text" placeholder="Email" id="email" :value="user.email">
+                <i class="glyphicon glyphicon-envelope"></i>
+            </div>
+            <div class="login-mail">
+                <input type="text" placeholder="Date Of Birth" id="date" :value="user.date_of_birth">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </div>
+            <label><button type="button" v-on:click="update" class="add-to item_add hvr-grow">Save Changes</button></label>
+        </div>
+        <div class="col-md-6 login-right">
+            <h3>Completely Free Account</h3>
+            <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor
+                lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
+        </div>
+        <div class="clearfix"> </div>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password" />
-    </div>
-    <div class="form-group">
-        <label for="email">Emailaddress</label>
-        <input type="email" class="form-control" id="email" :value="user.email" />
-    </div>
-    <div class="form-group">
-        <label for="date">Date of birth</label>
-        <input type="text" class="form-control" id="date" :value="user.date_of_birth" />
-    </div>
-    <button @click="update" id="submitFormButton" class="btn btn-default" name="save">Save changes</button>
 </div>
 </template>
 

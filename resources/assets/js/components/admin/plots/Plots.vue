@@ -1,8 +1,16 @@
-$(document).ready(function() {
-  document.title += 'plots';
-});
+<template>
+  <div id="content">
+    <canvas id="usersChart"></canvas>
+    <br /> <hr > <br />
+    <label for = "productsChart">Best selling products</label>
+    <canvas id="productsChart"></canvas>
+    <br /> <br /> <hr > <br /><br />
+    <canvas id="ordersChart"></canvas>
+  </div>
+</template>
 
-
+<script>
+/*
 var backgroundColors = ["#FF6384", "#36A2EB","#FFCE56", "#4BC0C0", "#7743CE", "#8e44ad", "#27ae60", "#e67e22", "#d35400", "#2c3e50"];
 
 // Users chart
@@ -107,3 +115,5 @@ function createOrdersChart(data){
     }
   });
 }
+*/
+</script>

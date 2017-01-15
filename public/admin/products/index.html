@@ -1,71 +1,20 @@
 <html>
-    <head></head>
 
-    <body>
-      <div id="content">
-        <ul>
-          <table class="table">
-            <tr>
-              <th><a class="btn btn-primary" href="/admin/products/create.html">Create</a></th>
-              <th>Name</th>
-              <th>Brand</th>
-              <th>Model</th>
-              <th>Price</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          <tbody id="demo" v-for="val in values">
-              <tr>
-                <td><img src="{{val.p_image}}" style="max-width:150px;" alt="{{val.p_name}}" class="full"/></td>
-                <td>{{val.p_name}}</td>
-                <td>{{val.p_brand}}</td>
-                <td>{{val.p_model}}</td>
-                <td>&euro;{{val.p_price}}</td>
-                <td><a class="btn btn-primary" href="/admin/products/edit.html?id={{val.product_id}}" name="edit">Update</a></td>
-                <td><button data-productid="{{val.product_id}}" class="btn" name="delete" v-on:click="deleteData(this)">Delete</button></td>
-              </tr>
-          </tbody>
-          </table>
-        </ul>
+<head>
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+    <div id="app">
+        <navigation-component></navigation-component>
+        <banner-component></banner-component>
+        <messages-component></messages-component>
+        <admin-products-overview-component></admin-products-overview-component>
+        <footer-component></footer-component>
     </div>
-    </body>
+
+    <script src="../../js/app.js"></script>
+</body>
+
 </html>
-
-<script src="../../includes/master/master.js"></script>
-<script>
-if(admin){
-  var demo = new Vue({
-    el: '#demo',
-    data : {
-      values : null
-    },
-    methods: {
-      fetchData: function () {
-        var xhr = new XMLHttpRequest()
-        var self = this
-        xhr.open('GET', local + 'products')
-        xhr.onload = function () {
-          self.values = JSON.parse(xhr.responseText);
-        }
-        xhr.send();
-      },
-      deleteData: function (thisEl) {
-        var id = thisEl.val.product_id;
-        var localDelete = local+'products/'+id;
-        // HTTP post request
-        var xhr = new XMLHttpRequest();
-        xhr.open('DELETE', localDelete);
-        // Send our values
-        xhr.send();
-        alert("Product was deleted.");
-        window.location = window.location;
-      }
-    }
-  })
-}
-else {
-  window.location = '/';
-}
-
-demo.fetchData();
-</script>

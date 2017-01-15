@@ -1,77 +1,20 @@
 <html>
-    <head></head>
 
-    <body>
-      <div id="content">
-        <ul>
-          <table class="table">
-            <tr>
-              <th>Username</th>
-              <th>Emailaddress</th>
-              <th>Date of birth</th>
-              <th>Banned</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          <tbody id="demo" v-for="val in values">
-              <tr>
-                <td>{{val.username}}</td>
-                <td>{{val.email}}</td>
-                <td>{{val.date_of_birth}}</td>
-                <td>{{val.boolean_banned}}</td>
-                <td><a class="btn btn-primary" href="/admin/users/edit.html?id={{val.user_id}}" name="edit">Update</a></td>
-                <td><button data-userid="{{val.id}}" class="btn" name="delete" v-on:click="deleteData(this)">Delete</button></td>
-              </tr>
-          </tbody>
-          </table>
-        </ul>
+<head>
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+    <div id="app">
+        <navigation-component></navigation-component>
+        <banner-component></banner-component>
+        <messages-component></messages-component>
+        <admin-users-overview-component></admin-users-overview-component>
+        <footer-component></footer-component>
     </div>
-    </body>
+
+    <script src="../../js/app.js"></script>
+</body>
+
 </html>
-
-<script src="../../includes/master/master.js"></script>
-<script>
-if(admin){
-  var demo = new Vue({
-    el: '#demo',
-    data : {
-      values : null
-    },
-    methods: {
-      fetchData: function () {
-        var xhr = new XMLHttpRequest()
-        var self = this
-        xhr.open('GET', local + 'users')
-        xhr.onload = function () {
-          self.values = JSON.parse(xhr.responseText)
-          $.each(self.values, function(k,v) {
-            if(v.boolean_banned === 0) {
-              v.boolean_banned = "No";
-            }
-            else {
-              v.boolean_banned = "Yes";
-            }
-          })
-        }
-        xhr.send();
-      },
-      deleteData: function (thisEl) {
-        var id = thisEl.val.user_id;
-        var localDelete = local+'users/'+id;
-        // HTTP post request
-        var xhr = new XMLHttpRequest();
-        xhr.open('DELETE', localDelete);
-        // Send our values
-        xhr.send();
-        alert("User was deleted.");
-        window.location = window.location;
-      }
-    }
-  })
-}
-else {
-  window.location = '/';
-}
-
-demo.fetchData();
-</script>

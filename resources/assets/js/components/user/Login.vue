@@ -1,14 +1,30 @@
 <template>
-<div>
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" />
+<div class="container">
+    <div class="login">
+        <form>
+            <div class="col-md-6 login-do">
+                <div class="login-mail">
+                    <input type="text" placeholder="Username" id="username">
+                    <i class="glyphicon glyphicon-user"></i>
+                </div>
+                <div class="login-mail">
+                    <input type="password" placeholder="Password" id="password">
+                    <i class="glyphicon glyphicon-lock"></i>
+                </div>
+                <a class="news-letter " href="#">
+                    <label class="checkbox1"><input type="checkbox" name="checkbox" ><i> </i>Remember Me</label>
+                </a>
+                <label><button type="button" v-on:click="login" class="add-to item_add hvr-grow">login</button></label>
+            </div>
+            <div class="col-md-6 login-right">
+                <h3>Completely Free Account</h3>
+                <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor
+                    lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
+                <label><a href="/user/register.html" class="add-to item_add hvr-grow">Register</a></labe>
+            </div>
+            <div class="clearfix"> </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" />
-    </div>
-    <button v-on:click="login" id="submitFormButton" class="btn btn-default" name="login">Login</button>
 </div>
 </template>
 
