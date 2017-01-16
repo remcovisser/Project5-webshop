@@ -21,9 +21,9 @@
                     </div>
                     <div class="quantity">
                         <div class="quantity-select">
-                            <div class="entry value-minus"></div>
-                            <div class="entry value"><span>1</span></div>
-                            <div class="entry value-plus active"></div>
+                            <div class="entry value-minus" @click="changeQuantity('decrease')"></div>
+                            <div class="entry value"><span>{{ quantity }}</span></div>
+                            <div class="entry value-plus" @click="changeQuantity('increase')"></div>
                         </div>
                     </div>
                     <button type="button" class="add-to item_add hvr-grow" @click="addItemToCart(product.product_id)">Order</button>
@@ -83,7 +83,8 @@ export default {
     },
     data() {
         return {
-            product: []
+            product: [],
+            quantity: 1
         }
     },
     methods: {
@@ -92,7 +93,7 @@ export default {
             if (cookie != undefined) {
                 for (var i = 0; i < cookie.length; i++) {
                     if (cookie[i]["p"] == product_id) {
-                        cookie[i]["q"]++;
+                        cookie[i]["q"] += this.quantity;
                         newItem = false;
                         var values = cookie;
                     }
@@ -100,7 +101,7 @@ export default {
                 if (newItem) {
                     var product = {
                         "p": product_id,
-                        "q": 1
+                        "q": this.quantity
                     };
                     cookie.push(product);;
                     var values = cookie;
@@ -108,7 +109,7 @@ export default {
             } else {
                 var values = [{
                     "p": product_id,
-                    "q": 1
+                    "q": this.quantity
                 }];
             }
 
@@ -118,6 +119,15 @@ export default {
             });
             cookie = $.cookie('cart');
             message("success", "Item has been added to your cart");
+        },
+        changeQuantity: function(type) {
+          var self = this;
+          if(type == "increase") {
+            self.quantity++;
+          } else {
+            if(self.quantity > 1)
+              self.quantity--;
+          }
         }
     }
 }

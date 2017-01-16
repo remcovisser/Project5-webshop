@@ -44,9 +44,10 @@
 var cartCookie = $.cookie('cart');
 export default {
     created() {
-        if (cartCookie == undefined) {
+        if (cartCookie == undefined || cartCookie.length == 0) {
             $(function() {
-                message("danger", "Your cart is empty", 2000);
+                message("danger", "Your cart is empty");
+                $(".check-out").remove();
             });
         } else {
             var self = this;
@@ -78,6 +79,7 @@ export default {
             });
             this.products = [];
             this.sum = 0;
+            $(".check-out").remove();
             message("success", "Your cart has been emptied");
         },
         quantityChange: function(product_id, e) {
