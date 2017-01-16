@@ -28,6 +28,7 @@
                                 <li class="guest"><a href="/user/register.html">Register</a></li>
                                 <li class="user"><a href="javascript:void(0)" id="logout">Logout</a></li>
                                 <li class="user"><a href="/user/profile.html">Profile</a></li>
+                                <li class="user admin"><a href="/admin/index.html">Admin</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -49,18 +50,6 @@
 
 <script>
 $(function() {
-    var currentUrl = window.location.href;
-    var currentPage = (currentUrl.split('/'));
-
-    $(".main_menu li a").each(function() {
-        var currentlink = $(this).attr('href').replace('/', '');
-        if (currentlink == currentPage[3]) {
-            $(this).parent('li').addClass('active');
-        } else {
-            $(this).parent('li').removeClass('active');
-        }
-    });
-
     // check if logged in..
     if (auth()) {
         // Things to do/hide when you're logged in

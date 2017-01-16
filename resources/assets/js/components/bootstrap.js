@@ -1,5 +1,6 @@
 // Layout
 Vue.component('navigation-component', require('./layout/Navigation.vue'));
+Vue.component('navigation-admin-component', require('./layout/NavigationAdmin.vue'));
 Vue.component('banner-component', require('./layout/Banner.vue'));
 Vue.component('messages-component', require('./layout/Messages.vue'));
 Vue.component('footer-component', require('./layout/Footer.vue'));

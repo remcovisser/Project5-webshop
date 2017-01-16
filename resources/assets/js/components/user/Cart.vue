@@ -10,11 +10,11 @@
                         <th>quantity</th>
                         <th>Subtotal</th>
                     </tr>
-                    <tr v-for="product in products" class="cart-header">
+                    <tr v-for="product in products" class="cart-header" :id="'product-'+product.product_id">
                         <td class="ring-in">
-                            <a href="single.html" class="at-in"><img :src="product.p_image" class="img-responsive" :alt="product.p_image"></a>
+                            <a :href="'/products/product.html?id='+product.product_id" class="at-in"><img :src="product.p_image" class="img-responsive" :alt="product.p_image"></a>
                             <div class="sed">
-                                <h5><a href="single.html">{{product.p_name}}</a></h5>
+                                <h5><a :href="'/products/product.html?id='+product.product_id">{{product.p_name}}</a></h5>
                                 <p>{{product.p_description}}</p>
                             </div>
                             <div class="clearfix"></div>
@@ -22,7 +22,7 @@
                         <td>{{product.p_price}}</td>
                         <td><input class="quantity" :value="product.quantity" type="number" @keyup="quantityChange(product.product_id, $event)"></td>
                         <td class="item_price">${{product.subtotal}}</td>
-                        <td><button type="button" class="item_add hvr-grow">Remove</button></td>
+                        <td><button @click="removeProduct(product.product_id)" type="button" class="item_add hvr-grow">Remove</button></td>
                     </tr>
                     <tr>
                         <th colspan="3">Total:</th>
@@ -122,6 +122,14 @@ export default {
             for (var i = 0; i < this.products.length; i++) {
                 this.sum += this.products[i]['p_price'] * this.products[i]['quantity'];
             }
+        },
+        removeProduct: function(product_id) {
+          console.log(product_id);
+          var self = this;
+          //$("#product-" + product_id).remove();
+          self.products = self.products.filter(item => item.product_id !== product_id);
+          console.log(self.products)
+          message("success", "The product has been removed from your cart", 5000)
         }
     }
 }
