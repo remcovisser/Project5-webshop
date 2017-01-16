@@ -44,9 +44,10 @@
 var cartCookie = $.cookie('cart');
 export default {
     created() {
-        if (cartCookie == undefined) {
+        if (cartCookie == undefined || cartCookie.length == 0) {
             $(function() {
-                message("danger", "Your cart is empty", 2000);
+                message("danger", "Your cart is empty");
+                $(".check-out").remove();
             });
         } else {
             var self = this;
@@ -78,6 +79,7 @@ export default {
             });
             this.products = [];
             this.sum = 0;
+            $(".check-out").remove();
             message("success", "Your cart has been emptied");
         },
         quantityChange: function(product_id, e) {
@@ -124,12 +126,18 @@ export default {
             }
         },
         removeProduct: function(product_id) {
-          console.log(product_id);
           var self = this;
-          //$("#product-" + product_id).remove();
           self.products = self.products.filter(item => item.product_id !== product_id);
-          console.log(self.products)
-          message("success", "The product has been removed from your cart", 5000)
+          self.sum = 0;
+          this.sumCart();
+          var values = cartCookie.filter(product => product["p"] !== product_id);
+          $.cookie('cart', values, {
+              expires: 7,
+              path: '/'
+          });
+          cartCookie = $.cookie('cart');
+
+          message("success", "The product has been removed from your cart", 5000);
         }
     }
 }

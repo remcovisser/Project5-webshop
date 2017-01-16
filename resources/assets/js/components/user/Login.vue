@@ -11,8 +11,8 @@
                     <input type="password" placeholder="Password" id="password">
                     <i class="glyphicon glyphicon-lock"></i>
                 </div>
-                <a class="news-letter" href="#">
-                    <label class="checkbox1"><input type="checkbox" name="rememberme"><i> </i>Remember Me</label>
+                <a class="news-letter " href="#">
+                    <label class="checkbox1"><input type="checkbox" id="rememberMe"><i></i>Remember Me</label>
                 </a>
                 <label><button type="button" v-on:click="login" class="add-to item_add hvr-grow">Login</button></label>
             </div>
@@ -34,6 +34,7 @@ export default {
         login: function() {
             var username = $("#username").val();
             var password = md5($("#password").val());
+            var expireTime;
             if (username == "" || password == "") {
                 message("danger", "Please fill in all the fields.");
             } else {
@@ -46,8 +47,13 @@ export default {
                             "date": user[0].date_of_birth,
                             "admin": user[0].admin
                         };
+                        if($('#rememberMe').is(":checked")) {
+                          expireTime = 7;
+                        } else {
+                          expireTime = 1;
+                        }
                         $.cookie('user', user_data, {
-                            expires: 1,
+                            expires: expireTime,
                             path: '/'
                         });
                         window.location = '/';

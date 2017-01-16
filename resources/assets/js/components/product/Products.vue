@@ -47,18 +47,15 @@
             <div v-for="product in products" class="col-md-3 item-grid simpleCart_shelfItem">
                 <div class="mid-pop">
                     <div class="pro-img">
-                        <img :src="product.p_image" class="img-responsive" alt="">
+                        <a :href="'/products/product.html?id=' + product.product_id">
+                          <img :src="product.p_image" class="img-responsive" alt="Product image">
+                        </a>
                     </div>
                     <div class="mid-1">
                         <div class="women">
                             <div class="women-top">
                                 <span>Category</span>
                                 <h6 class="product_title">  <a :href="'/products/product.html?id=' + product.product_id">{{ product.p_name}}</a></h6>
-                            </div>
-                            <div class="img item_add">
-                                <a href="">
-                                    <img src="/images/ca.png" alt="">
-                                </a>
                             </div>
                             <div class="clearfix"></div>
                         </div>
