@@ -21,9 +21,7 @@
             <label><button type="button" v-on:click="register" class="add-to item_add hvr-grow">Register</button></label>
         </div>
         <div class="col-md-6 login-right">
-            <h3>Completely Free Account</h3>
-            <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor
-                lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
+            <h3>Already have an account?</h3>
             <label><a href="/user/login.html" class="add-to item_add hvr-grow">Login</a></label>
         </div>
         <div class="clearfix"> </div>

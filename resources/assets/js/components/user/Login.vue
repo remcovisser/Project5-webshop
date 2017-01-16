@@ -11,15 +11,14 @@
                     <input type="password" placeholder="Password" id="password">
                     <i class="glyphicon glyphicon-lock"></i>
                 </div>
-                <a class="news-letter " href="#">
-                    <label class="checkbox1"><input type="checkbox" name="checkbox" ><i> </i>Remember Me</label>
+                <a class="news-letter" href="#">
+                    <label class="checkbox1"><input type="checkbox" name="rememberme"><i> </i>Remember Me</label>
                 </a>
-                <label><button type="button" v-on:click="login" class="add-to item_add hvr-grow">login</button></label>
+                <label><button type="button" v-on:click="login" class="add-to item_add hvr-grow">Login</button></label>
             </div>
             <div class="col-md-6 login-right">
-                <h3>Completely Free Account</h3>
-                <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor
-                    lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
+                <h3>Don't have an account?</h3>
+                <p>Does it look like we are able to make money from a school project? Thought so.</p>
                 <label><a href="/user/register.html" class="add-to item_add hvr-grow">Register</a></labe>
             </div>
             <div class="clearfix"> </div>

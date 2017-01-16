@@ -16,7 +16,6 @@
                     <div class="wish-list">
                         <ul>
                             <li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
-                            <li class="compare"><a href="#"><span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>Add to Compare</a></li>
                         </ul>
                     </div>
                     <div class="quantity">
@@ -35,8 +34,6 @@
                 <nav class="nav-sidebar">
                     <ul class="nav tabs">
                         <li class="active"><a href="#tab1" data-toggle="tab">Product Description</a></li>
-                        <li class=""><a href="#tab2" data-toggle="tab">Additional Information</a></li>
-                        <li class=""><a href="#tab3" data-toggle="tab">Reviews</a></li>
                     </ul>
                 </nav>
                 <div class="tab-content one">

@@ -2,15 +2,8 @@
 <div>
     <div class="header">
         <div class="container">
-            <div class="head">
-                <div class=" logo">
-                    <a href="/"><img src="/images/logo.png" alt=""></a>
-                </div>
-            </div>
-        </div>
-        <div class="container">
             <div class="head-top">
-                <div class="col-sm-8 col-md-offset-2 h_menu4">
+                <div class="col-sm-8">
                     <nav class="navbar nav_bottom" role="navigation">
                         <div class="navbar-header nav_2">
                             <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
@@ -26,18 +19,18 @@
                                 <li><a href="/products">Products</a></li>
                                 <li class="guest"><a href="/user/login.html">Login</a></li>
                                 <li class="guest"><a href="/user/register.html">Register</a></li>
-                                <li class="user"><a href="javascript:void(0)" id="logout">Logout</a></li>
                                 <li class="user"><a href="/user/profile.html">Profile</a></li>
                                 <li class="user admin"><a href="/admin/index.html">Admin</a></li>
                             </ul>
                         </div>
                     </nav>
                 </div>
-                <div class="col-sm-2 search-right">
+                <div class="col-sm-2 search-right right">
                     <ul class="heart">
-                        <li><a href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+                        <li class="user"><a href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></li>
+                        <li class="user"><a href="meme" class="wishlink"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
                         <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+                        <li class="user"><a href="javascript:void(0)" id="logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
@@ -57,8 +50,9 @@ $(function() {
         if (!admin()) {
             $(".admin").remove();
         }
-        $(".user_panel .main").append($.cookie('user').username + " <span class='caret'></span>");
 
+        $(".wishlink").attr("href", "/wishlist/" + $.cookie('user').user_id);
+        
         $("#logout").on("click", function() {
             $.removeCookie('user', {
                 path: '/'

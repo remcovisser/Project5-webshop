@@ -1,11 +1,13 @@
 <template>
 <div class="banner-top">
     <div class="container">
-        <h1 id="pageName"></h1>
-        <em></em>
-        <h2 id="subPage">
-            <a href="/">Home</a>
-        </h2>
+        <div class="page-top">
+            <h1 id="pageName"></h1>
+            <em></em>
+            <h2 id="subPage">
+                <a href="/">Home</a>
+            </h2>
+        </div>
     </div>
 </div>
 </template>
