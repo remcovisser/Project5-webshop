@@ -124,12 +124,18 @@ export default {
             }
         },
         removeProduct: function(product_id) {
-          console.log(product_id);
           var self = this;
-          //$("#product-" + product_id).remove();
           self.products = self.products.filter(item => item.product_id !== product_id);
-          console.log(self.products)
-          message("success", "The product has been removed from your cart", 5000)
+          self.sum = 0;
+          this.sumCart();
+          var values = cartCookie.filter(product => product["p"] !== product_id);
+          $.cookie('cart', values, {
+              expires: 7,
+              path: '/'
+          });
+          cartCookie = $.cookie('cart');
+
+          message("success", "The product has been removed from your cart", 5000);
         }
     }
 }
