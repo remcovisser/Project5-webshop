@@ -83,7 +83,6 @@ export default {
       createAddress(street, city, country, postalcode, housenumber, insertOrder);
 
       function insertOrder(address_id) {
-        console.log(address_id);
         var values = {
           user_id: 1,
           firstname: $("#firstname").val(),
@@ -97,8 +96,34 @@ export default {
         });
       }
 
-      function insertOrderlines(order_id) {
-        console.log(oder_id);
+      function insertOrderlines() {
+        $.get(local + '/orders/last', function(lastOrderId) {
+          var order_id;
+          if(lastOrderId == 'undefined') {
+              order_id = 1;
+          } else {
+              order_id = lastOrderId + 1;
+          }
+          var cartCookie = $.cookie('cart');
+          for (var i = 0; i < cartCookie.length; i++) {
+            $.ajax({
+                url: local + '/products/' + cartCookie[i]["p"],
+                async: false,
+                dataType: 'json',
+                success: function(product) {
+                  var values = {
+                    product_id: cartCookie[i]["p"],
+                    order_id: order_id,
+                    quantity: cartCookie[i]["q"],
+                    product_price: product[0]['p_price']
+                  };
+                  $.post(local + '/orderlines/create', JSON.stringify(values), function(result) {});
+                }
+            });
+            if(i+1 == cartCookie.length)
+              message("success", "Your order has been paid");
+          }
+        });
       }
     }
   }
