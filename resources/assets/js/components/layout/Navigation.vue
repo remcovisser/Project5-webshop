@@ -19,6 +19,7 @@
                                 <li><a href="/products">Products</a></li>
                                 <li class="guest"><a href="/user/login.html">Login</a></li>
                                 <li class="guest"><a href="/user/register.html">Register</a></li>
+                                <li><a href="/wishlists">Wishlists</a></li>
                                 <li class="user"><a href="/user/profile.html">Profile</a></li>
                                 <li class="user admin"><a href="/admin/index.html">Admin</a></li>
                             </ul>
