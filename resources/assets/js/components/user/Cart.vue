@@ -35,7 +35,8 @@
                         <td><button @click="emptyCart()" class="item_add hvr-grow">Empty Cart</button></td>
                     </tr>
                     <tr>
-                      <td><label><a href="/cart/checkout.html" class="add-to item_add hvr-grow">Checkout</a></label></td>
+                      <td id="check-out-authenticated"><label><a href="/cart/checkout.html" class="add-to item_add hvr-grow">Checkout</a></label></td>
+                      <td id="check-out">Please <a href="/user/login.html">Login</a> or <a href="/user/register.html">Register</a> to finish your order.</td>
                     </tr>
                 </table>
             </div>
@@ -48,6 +49,14 @@
 
 <script type="text/javascript">
 var cartCookie = $.cookie('cart');
+var userCookie = $.cookie('user');
+$(function(){
+  if (userCookie == undefined || userCookie.length == 0) {
+    $("#check-out-authenticated").remove();
+  } else {
+    $("#check-out").remove();
+  }
+});
 export default {
     created() {
         if (cartCookie == undefined || cartCookie.length == 0) {
@@ -69,8 +78,8 @@ export default {
                     }
                 });
             }
+            this.sumCart();
         }
-        this.sumCart();
     },
     data() {
         return {
