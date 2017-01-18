@@ -136,7 +136,7 @@ export default {
               // Last itteration
               if(i+1 == cartCookie.length)
                 // TODO empty cart, ridirect
-                message("success", "Your order has been paid, you will be ridirected to the index in 5 seconds");
+                message("success", "Your order has been paid, you will be redirected to the index in 5 seconds");
                 setInterval(orderFinished, 5000)
             }
           });

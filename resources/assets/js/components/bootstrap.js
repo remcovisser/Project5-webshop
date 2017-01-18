@@ -29,3 +29,4 @@ Vue.component('admin-users-edit-component', require('./admin/users/Edit.vue'));
 Vue.component('admin-products-overview-component', require('./admin/products/Overview.vue'));
 Vue.component('admin-products-create-component', require('./admin/products/Create.vue'));
 Vue.component('admin-products-edit-component', require('./admin/products/Edit.vue'));
+Vue.component('admin-orders-component', require('./admin/users/Orders.vue'));

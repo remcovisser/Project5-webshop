@@ -25,6 +25,7 @@
                                 <li><a href="/">Home</a></li>
                                 <li><a href="/admin/users">Users</a></li>
                                 <li><a href="/admin/products">Products</a></li>
+                                <li><a href="/admin/users/orders.html">Orders</a></li>
                                 <li><a href="/admin/plots">Plots</a></li>
                             </ul>
                         </div>

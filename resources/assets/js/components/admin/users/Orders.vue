@@ -7,11 +7,13 @@
           <table class="table-heading simpleCart_shelfItem">
             <tr>
               <th>Order ID</th>
+              <th>User</th>
               <th>Date</th>
               <th>Info</th>
             </tr>
             <tr v-for="order in orders">
               <td>{{ order.order_id }}</td>
+              <td>{{ order.user_id }}</td>
               <td> {{ order.order_date.substring(0, order.order_date.indexOf('T')) }} </td>
               <td><span @click="showOrderlines( order.order_id)" class="pointer">Show more info</span></td>
             </tr>
@@ -52,10 +54,9 @@ $(function(){
 export default {
   created() {
     var self = this;
-    var user_id = $.cookie('user').user_id;
-    $.get(local + 'orders/user/' + user_id, function(orders) {
+    $.get(local + 'orders', function(orders) {
       if(orders.length == 0) {
-          message("danger", "You have not placed any orders yet");
+          message("danger", "There are no orders yet");
           $("#orders").hide();
       } else {
         self.orders = orders;
