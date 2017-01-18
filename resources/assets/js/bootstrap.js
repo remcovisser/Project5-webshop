@@ -12,3 +12,4 @@ window.auth = require('./helpers/general').auth;
 window.admin = require('./helpers/general').admin;
 window.helper = require('./helpers/general');
 window.validate = require('./helpers/validater');
+window.createAddress = require('./helpers/address').createAddress;

@@ -37,7 +37,6 @@ export default {
             var password = $("#password").val();
             var email = $("#email").val();
             var date = $("#date").val();
-            console.log(username, password, email, date);
             if (username == "" || password == "" || email == "" || date == "") {
                 message("danger", "Please fill in all the fields.");
             } else if (!validate.uniqueUsername(username)) {

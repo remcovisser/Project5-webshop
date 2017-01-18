@@ -25,11 +25,17 @@
                         <td><button @click="removeProduct(product.product_id)" type="button" class="item_add hvr-grow">Remove</button></td>
                     </tr>
                     <tr>
+                      <td colspan="5"><hr></td>
+                    </tr>
+                    <tr>
                         <th colspan="3">Total:</th>
                         <td>
                             <p id="totalPrice">${{sum}}</p>
                         </td>
                         <td><button @click="emptyCart()" class="item_add hvr-grow">Empty Cart</button></td>
+                    </tr>
+                    <tr>
+                      <td><label><a href="/cart/checkout.html" class="add-to item_add hvr-grow">Checkout</a></label></td>
                     </tr>
                 </table>
             </div>

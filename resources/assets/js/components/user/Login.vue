@@ -19,7 +19,7 @@
             <div class="col-md-6 login-right">
                 <h3>Don't have an account?</h3>
                 <p>Does it look like we are able to make money from a school project? Thought so.</p>
-                <label><a href="/user/register.html" class="add-to item_add hvr-grow">Register</a></labe>
+                <label><a href="/user/register.html" class="add-to item_add hvr-grow">Register</a></label>
             </div>
             <div class="clearfix"> </div>
         </form>
