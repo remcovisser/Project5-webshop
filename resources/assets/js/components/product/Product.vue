@@ -3,7 +3,7 @@
     <div class="container">
         <div class="col-md-12">
             <div class="col-md-5 grid">
-                <img :src="product.p_image" :alt="product.p_image" data-imagezoom="true" class="img-responsive">
+                <img width="450" height="300" :src="product.p_image" :alt="product.p_image" data-imagezoom="true" class="img-responsive">
             </div>
             <div class="col-md-7 single-top-in">
                 <div class="span_2_of_a1 simpleCart_shelfItem">
@@ -15,7 +15,11 @@
                     </div>
                     <div class="wish-list">
                         <ul>
-                            <li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
+                            <li class="wish">
+                                <button type="button" @click="addWish" class="add-to item_add hvr-grow">
+                                    <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Add To Wishlist
+                                </button>
+                            </li>
                         </ul>
                     </div>
                     <div class="quantity">
@@ -77,14 +81,56 @@ export default {
         $.get(local + 'products/' + product_id, function(product) {
             self.product = product[0];
         });
+        
+        if($.cookie('user')) {
+            var user_id = $.cookie('user').user_id;
+            self.user_id = user_id;
+            $.get(local + 'wishlist/' + user_id, function(data) { 
+                if(data.length > 0 && data[0].hidden == 0) {
+                    self.pvtwish = 0;
+                }
+            });
+            $.get(local + 'wishlist/' + user_id + '/' + product_id, function(exists) {
+                if(exists.length > 0) {
+                    $(document).ready(function(){
+                        $(".wish-list").html("This item is already added to your wishlist.");
+                    });
+                }
+            });
+        }
+        else {
+            $(document).ready(function(){
+                $(".wish-list").html("Log in to add this to your wishlist.");
+            });
+        }
     },
     data() {
         return {
             product: [],
-            quantity: 1
+            quantity: 1,
+            pvtwish: 1,
+            user_id:0
         }
     },
     methods: {
+        addWish: function() {
+            var self = this;
+            var d = new Date();
+            var currentDate = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+
+            var values = {
+                    user_id: self.user_id,
+                    product_id: product_id,
+                    addition_date: currentDate,
+                    hidden: self.pvtwish
+                };
+                console.log(values);
+                values = JSON.stringify(values);
+
+                $.post(local + '/wishlist/create', values, function(result) {
+                    message("success", "The item has been added to your wishlist.")
+                });
+        },
         addItemToCart: function(product_id) {
             var newItem = true;
             if (cookie != undefined) {

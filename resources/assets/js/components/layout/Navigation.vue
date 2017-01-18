@@ -28,7 +28,7 @@
                 <div class="col-sm-2 search-right right">
                     <ul class="heart">
                         <li class="user"><a href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></li>
-                        <li class="user"><a href="meme" class="wishlink"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+                        <li class="user"><a href="/user/wishlist.html" class="wishlink"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
                         <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
                         <li class="user"><a href="javascript:void(0)" id="logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
                     </ul>
@@ -50,8 +50,6 @@ $(function() {
         if (!admin()) {
             $(".admin").remove();
         }
-
-        $(".wishlink").attr("href", "/wishlist/" + $.cookie('user').user_id);
         
         $("#logout").on("click", function() {
             $.removeCookie('user', {
