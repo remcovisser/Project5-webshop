@@ -28,6 +28,7 @@
 
                 <div class="clearfix"> </div>
                 <label><button type="button" v-on:click="updateSettings" class="add-to item_add hvr-grow">Save settings</button></label>
+                <label><a href="/user/orders.html" class="add-to item_add hvr-grow">Order history</a></label>
             </div>
         </div>
     </div>

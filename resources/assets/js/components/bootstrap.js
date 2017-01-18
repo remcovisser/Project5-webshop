@@ -16,6 +16,7 @@ Vue.component('profile-component', require('./user/Profile.vue'));
 Vue.component('cart-component', require('./user/Cart.vue'));
 Vue.component('wishlist-component', require('./user/Wishlist.vue'));
 Vue.component('checkout-component', require('./user/Checkout.vue'));
+Vue.component('user-orders-component', require('./user/Orders.vue'));
 
 // Admin
 Vue.component('admin-plots-component', require('./admin/plots/Plots.vue'));
