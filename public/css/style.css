@@ -2732,6 +2732,14 @@ ul.nav.nav-pills {
 	font-family: 'Ubuntu-Regular';
 }
 
+.mtb20 {
+    margin:20px 0;
+}
+
+.text-centered {
+    text-align:center;
+}
+
 .searchBox {
     padding:20px;
     background:rgba(255, 255, 255, 0.80);
