@@ -114,8 +114,7 @@ export default {
 
         function insertOrderlines() {
           $.get(local + '/orders/last', function(lastOrderId) {
-            console.log(lastOrderId);
-            var order_id = lastOrderId[0]['order_id'] + 1;
+            var order_id = lastOrderId[0]['order_id'];
 
             // Get the product info to store it in the orderline
             var cartCookie = $.cookie('cart');
@@ -142,7 +141,7 @@ export default {
             }
           });
         }
-        
+
         function orderFinished() {
             $.removeCookie('cart', { path: '/' });
             window.location.replace("/");
