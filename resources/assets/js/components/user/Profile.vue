@@ -19,14 +19,17 @@
                 <input type="text" placeholder="Date Of Birth" id="date" :value="user.date_of_birth">
                 <i class="glyphicon glyphicon-calendar"></i>
             </div>
-            <label><button type="button" v-on:click="update" class="add-to item_add hvr-grow">Save Changes</button></label>
+            <label><button type="button" v-on:click="update" class="add-to item_add hvr-grow">Save user</button></label>
         </div>
-        <div class="col-md-6 login-right">
-            <h3>Completely Free Account</h3>
-            <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor
-                lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
+        <div class="col-md-6 settings">
+            <h3>Other settings</h3>
+                <h4>Wishlist</h4>
+                Private <input type="checkbox" id="private"/>
+
+                <div class="clearfix"> </div>
+                <label><button type="button" v-on:click="updateSettings" class="add-to item_add hvr-grow">Save settings</button></label>
+            </div>
         </div>
-        <div class="clearfix"> </div>
     </div>
 </div>
 </template>
@@ -36,13 +39,20 @@ export default {
     created() {
         var self = this;
         var user_id = $.cookie('user').user_id;
+        self.user_id = user_id;
         $.get(local + 'users/' + user_id, function(user) {
             self.user = user[0];
+        });
+        $.get(local + 'wishlist/' + user_id, function(data) {
+            if(data[0].hidden) {
+                $("#private").prop('checked', true);
+            }
         });
     },
     data() {
         return {
             user: [],
+            user_id: 0
         }
     },
     methods: {
@@ -78,6 +88,25 @@ export default {
 
                 message("success", "Your account has been updated.")
             }
+        },
+        updateSettings: function() {
+            var self = this;
+            var pvt;
+            if($('#private').is(':checked')){
+                pvt = 1;
+            }
+            else {
+                pvt = 0;
+            }
+
+            var user_data = {
+                hidden: pvt
+            };
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('PUT', local + 'wishlist/' + self.user.user_id);
+            xhr.send(JSON.stringify(user_data));
+
         }
     }
 }
