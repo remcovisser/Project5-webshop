@@ -32,7 +32,7 @@
                 <th>Price</th>
               </tr>
               <tr v-for="orderline in orderlines">
-                <td><a :href="'/products/product.html?id='+orderline.product_id">{{ orderline.product_name }}</a></td>
+                <td><a :href="'/products/product.html?id='+orderline.product_id">{{ orderline.p_name }}</a></td>
                 <td>{{ orderline.quantity }}</td>
                 <td>${{ orderline.product_price }}</td>
               </tr>
@@ -74,24 +74,9 @@ export default {
     showOrderlines: function(order_id) {
       var self = this;
       self.orderlines = [];
-      $.get(local + 'orderlines/show-all/' + order_id, function(orderlines) {
-        for (var i = 0; i < orderlines.length; i++) {
-          $.ajax({
-              url: local + '/products/' + orderlines[i]["product_id"],
-              async: false,
-              dataType: 'json',
-              success: function(product) {
-                var values = {
-                  product_id: product[0]['product_id'],
-                  product_name: product[0]['p_name'],
-                  product_price: product[0]['p_price'],
-                  quantity: orderlines[i]['quantity']
-                };
-                self.orderlines.push(values);
-              }
-          });
-          $("#orderlines").show();
-        }
+      $.get(local + 'orderlines/info/' + order_id, function(orderlines) {
+        self.orderlines = orderlines;
+        $("#orderlines").show();
       });
     }
   }
