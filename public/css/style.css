@@ -2756,3 +2756,11 @@ ul.nav.nav-pills {
 .pointer {
     cursor: pointer;
 }
+
+.favourite-status-0 {
+  color: black;
+}
+
+.favourite-status-1 {
+  color: red;
+}

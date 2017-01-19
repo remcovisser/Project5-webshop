@@ -34,7 +34,9 @@
                 <td><a :href="'/products/product.html?id='+orderline.product_id">{{ orderline.p_name }}</a></td>
                 <td>{{ orderline.quantity }}</td>
                 <td>${{ orderline.product_price }}</td>
-                <td>Ja/Nee</td>
+                <td>
+                  <span aria-hidden="true" @click="favourite(orderline.product_id, orderline.favourited, orderline.order_id, $event)" :class="'glyphicon glyphicon-heart pointer favourite-status-'+orderline.favourited"></span>
+                </td>
               </tr>
             </table>
           </div>
@@ -79,6 +81,35 @@ export default {
         self.orderlines = orderlines;
         $("#orderlines").show();
       });
+    },
+    favourite: function(product_id, status, order_id, e) {
+      var clickedElement = e.target;
+      var userCookie = $.cookie('user');
+      var self = this;
+      if(status == 1) {
+        var deleteFavouriteRequest = $.ajax({
+          url: local+'favourites/'+userCookie.user_id+'/'+product_id,
+          method: "DELETE"
+        });
+
+        deleteFavouriteRequest.done(function( msg ) {
+          $.get(local + 'orderlines/info/' + order_id, function(orderlines) {
+            self.orderlines = orderlines;
+            message("success", "You no longer favourite this product");
+          });
+        });
+      } else{
+        var values = {
+          product_id: product_id,
+          user_id: userCookie.user_id
+        };
+        $.post(local + 'favourites/create', JSON.stringify(values), function(result) {
+          $.get(local + 'orderlines/info/' + order_id, function(orderlines) {
+            self.orderlines = orderlines;
+            message("success", "You have favourited this product");
+          });
+        });
+      }
     }
   }
 }
