@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-sm-2 search-right right">
                     <ul class="heart">
-                        <li class="user"><a href="#"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></li>
+                        <li class="user"><a href="/user/favourites.html"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></a></li>
                         <li class="user"><a href="/user/wishlist.html" class="wishlink"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
                         <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
                         <li class="user"><a href="javascript:void(0)" id="logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
@@ -51,7 +51,7 @@ $(function() {
         if (!admin()) {
             $(".admin").remove();
         }
-        
+
         $("#logout").on("click", function() {
             $.removeCookie('user', {
                 path: '/'

@@ -17,6 +17,7 @@ Vue.component('cart-component', require('./user/Cart.vue'));
 Vue.component('wishlist-component', require('./user/Wishlist.vue'));
 Vue.component('checkout-component', require('./user/Checkout.vue'));
 Vue.component('user-orders-component', require('./user/Orders.vue'));
+Vue.component('favourites-component', require('./user/Favourites.vue'));
 
 // Wishlist
 Vue.component('lists-component', require('./wishlist/Overview.vue'));
