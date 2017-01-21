@@ -38,6 +38,7 @@
                 <nav class="nav-sidebar">
                     <ul class="nav tabs">
                         <li class="active"><a href="#tab1" data-toggle="tab">Product Description</a></li>
+                        <li><a href="#tab2" data-toggle="tab">Recommended products</a></li>
                     </ul>
                 </nav>
                 <div class="tab-content one">
@@ -55,8 +56,7 @@
                         </div>
                     </div>
                     <div class="tab-pane text-style" id="tab2">
-                    </div>
-                    <div class="tab-pane text-style" id="tab3">
+                      <recommended-products-component></recommended-products-component>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -81,11 +81,11 @@ export default {
         $.get(local + 'products/' + product_id, function(product) {
             self.product = product[0];
         });
-        
+
         if($.cookie('user')) {
             var user_id = $.cookie('user').user_id;
             self.user_id = user_id;
-            $.get(local + 'wishlist/' + user_id, function(data) { 
+            $.get(local + 'wishlist/' + user_id, function(data) {
                 if(data.length > 0 && data[0].hidden == 0) {
                     self.pvtwish = 0;
                 }

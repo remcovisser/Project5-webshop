@@ -2764,3 +2764,7 @@ ul.nav.nav-pills {
 .favourite-status-1 {
   color: red;
 }
+
+.soft-hide {
+  display: none;
+}
