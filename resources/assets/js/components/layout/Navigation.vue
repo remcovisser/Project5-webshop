@@ -59,7 +59,6 @@ $(function() {
             window.location = '/';
         });
     } else {
-        $(".user_panel .main").append("Hey user! <span class='caret'></span>");
         $(".admin").remove();
         $(".user").remove();
     }
