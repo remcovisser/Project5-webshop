@@ -46,30 +46,30 @@ export default {
                     'password': password
                     },
                     success:function(result)//we got the response
-                    {                          
+                    {
                         if (result.success == 'true') {
                             if($('#rememberMe').is(":checked")) {expireTime = 7;}
                             else {expireTime = 1;}
-                            
+
                             var user_data = {
                                             "user_id": result.user_id,
                                             "username": result.username,
                                             "email": result.email,
                                             "date": result.date_of_birth,
-                                            "admin": result.admin
+                                            "admin": result.admin,
+                                            "token": result.token
                                             };
 
-                            $.cookie('user',user_data, result.token, {
-                                token : result.token,
+                            $.cookie('user',user_data, {
                                 expires: expireTime,
                                 path: '/'
                             });
                             window.location = '/';
-                        } 
-                        else 
+                        }
+                        else
                         {
                             message("danger", "Wrong username / password.");
-                        }   
+                        }
                     }})
             }
         }
