@@ -57,7 +57,10 @@ export default {
                 values = JSON.stringify(values);
 
                 $.post(local + '/users/create', values, function(result) {
-                    message("success", "Your account has been created.")
+                }).done(function() {
+                  message("success", "Your account has been created.")
+                }).fail(function(data, textStatus, xhr) {
+                  message("danger", "Woops something went wrong, please try again later.")
                 });
             }
         }
