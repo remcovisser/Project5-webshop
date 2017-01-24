@@ -7,3 +7,4 @@ Project 5, group 5, webshop
  - Start API -> node app.js
  - Start local server like mamp/wamp
  - Start watch for Gulp -> gulp watch
+.
