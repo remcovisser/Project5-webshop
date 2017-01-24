@@ -35,7 +35,6 @@ export default {
     var self = this;
     var product_id = (window.location.href.split('?id='))[1];
     $.get(local + 'products/recommended/' + product_id, function(products) {
-        console.log(products);
         if(products.length == 0) {
           $("#no-recommended-products").show();
         } else {
