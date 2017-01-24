@@ -6,7 +6,7 @@ window.Vue = require('vue');
 window.md5 = require('md5');
 require('bootstrap');
 
-window.local = "http://localhost:8080/";
+window.local = "http://localhost:9000/";
 window.message = require('./helpers/messages').message;
 window.auth = require('./helpers/general').auth;
 window.admin = require('./helpers/general').admin;
