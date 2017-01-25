@@ -14,22 +14,23 @@
 export default {
   created() {
      var x = $.cookie("user");
-     
+
      var backgroundColors = ["#FF6384", "#36A2EB","#FFCE56", "#4BC0C0", "#7743CE", "#8e44ad", "#27ae60", "#e67e22", "#d35400", "#2c3e50"];
 
     // Users chart
-    var xhrUsers = new XMLHttpRequest();
-    xhrUsers.open('GET', local + '/admin/registered-users');
 
-    //xhrUsers.setRequestHeader('Access-Control-Allow-Headers', '*');
-    xhrUsers.setRequestHeader('Authorization', x.token);
-    debugger;
 
-    xhrUsers.onload = function () {
-      createUserChart(JSON.parse(xhrUsers.responseText));
-    }
-
-    xhrUsers.send();
+    $.ajax({
+         url: local + '/admin/registered-users',
+         type: "GET",
+         beforeSend: function(xhr){
+           xhr.setRequestHeader('authorization', x.token);
+         },
+         success: function(data) {
+           console.log(data);
+            createUserChart(data);
+          }
+      });
 
     function createUserChart(data){
       var ctx = document.getElementById("usersChart");
