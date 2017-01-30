@@ -31,6 +31,7 @@ export default {
   created() {
     var self = this;
     $.get(local + '/users', function(users) {
+      console.log(users);
         self.users = users;
       });
   },

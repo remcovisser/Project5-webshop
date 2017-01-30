@@ -124,7 +124,6 @@ export default {
                     addition_date: currentDate,
                     hidden: self.pvtwish
                 };
-                console.log(values);
                 values = JSON.stringify(values);
 
                 $.post(local + '/wishlist/create', values, function(result) {
