@@ -10,7 +10,7 @@
             <div class="mid-1">
                 <div class="women">
                     <div class="women-top">
-                        <h6 class="product_title" :id="wish.product_id">  
+                        <h6 class="product_title" :id="wish.product_id">
                             <a :href="'/products/product.html?id=' + wish.product_id">{{wish.p_name}}</a>
                         </h6>
                     </div>
@@ -56,6 +56,7 @@ export default {
             xhr.open('DELETE', local + 'wishlist/' + self.user_id + '/' + id);
             xhr.send();
             message("success", "The product has been removed from your wishlist.")
+            self.products = self.products.filter(item => item.product_id !== id);
         }
     }
 }

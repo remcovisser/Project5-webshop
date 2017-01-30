@@ -23,8 +23,10 @@
         </div>
         <div class="col-md-6 settings">
             <h3>Other settings</h3>
-                <h4>Wishlist</h4>
-                Private <input type="checkbox" id="private"/>
+                <div id="wishlistContainer" class="soft-hide">
+                  <h4>Wishlist</h4>
+                  Private <input type="checkbox" id="private"/>
+                </div>
 
                 <div class="clearfix"> </div>
                 <label><button type="button" v-on:click="updateSettings" class="add-to item_add hvr-grow">Save settings</button></label>
@@ -45,8 +47,12 @@ export default {
             self.user = user[0];
         });
         $.get(local + 'wishlist/' + user_id, function(data) {
-            if(data[0].hidden) {
+            console.log(data);
+            if(data.length > 0) {
+              $("#wishlistContainer").show();
+              if(data[0].hidden) {
                 $("#private").prop('checked', true);
+              }
             }
         });
     },
@@ -108,6 +114,7 @@ export default {
             xhr.open('PUT', local + 'wishlist/' + self.user.user_id);
             xhr.send(JSON.stringify(user_data));
 
+            message("success", "Your settings has been updated.")
         }
     }
 }
