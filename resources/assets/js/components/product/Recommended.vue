@@ -38,6 +38,8 @@ export default {
         if(products.length == 0) {
           $("#no-recommended-products").show();
         } else {
+          for(var i = 0; i < products.length; i++)
+            products[i].p_price = helper.price(products[i].p_price);
           self.recommendedProducts = products;
         }
     });

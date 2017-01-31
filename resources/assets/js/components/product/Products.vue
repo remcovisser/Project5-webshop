@@ -78,6 +78,8 @@ export default {
     created() {
         var self = this;
         $.get(local + '/products', function(products) {
+            for(var i = 0; i < products.length; i++)
+              products[i].p_price = helper.price(products[i].p_price);
             self.products = products;
             self.originalValues = products;
             var search = (window.location.href.split('?search='))[1];
