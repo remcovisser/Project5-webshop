@@ -70,15 +70,11 @@
 var product_id = (window.location.href.split('?id='))[1];
 var cookie = $.cookie('cart');
 
-$(function() {
-    var price = $("#product_price").text();
-    $("#product_price").text(helper.price(price));
-});
-
 export default {
     created() {
         var self = this;
         $.get(local + 'products/' + product_id, function(product) {
+            product[0].p_price = helper.price(product[0].p_price);
             self.product = product[0];
         });
 
