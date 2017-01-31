@@ -52,6 +52,8 @@ export default {
     var xhr = new XMLHttpRequest()
     var self = this
     xhr.open('GET', local+'products/'+ourId)
+    var x = $.cookie("user");
+    xhr.setRequestHeader('authorization', x.token);
     xhr.onload = function () {
         // Get values to show
         self.values = (JSON.parse(xhr.responseText))[0];
@@ -105,6 +107,8 @@ export default {
             // HTTP post request
             var xhr = new XMLHttpRequest();
             xhr.open('PUT', local+'products/'+ourId);
+            var x = $.cookie("user");
+            xhr.setRequestHeader('authorization', x.token);
             // Send our values
             xhr.send(values);
 

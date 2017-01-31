@@ -76,6 +76,8 @@ export default {
           // HTTP post request
           var xhr = new XMLHttpRequest();
           xhr.open('POST', local+'/products/create');
+          var x = $.cookie("user");
+          xhr.setRequestHeader('authorization', x.token);
           // Send our values
           xhr.send(values);
           window.location = '/admin/products';

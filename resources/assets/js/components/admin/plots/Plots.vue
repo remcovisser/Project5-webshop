@@ -78,6 +78,7 @@ export default {
     // Products chart
     var xhrProducts = new XMLHttpRequest();
     xhrProducts.open('GET', local + '/admin/best-selling-products/10');
+    xhrProducts.setRequestHeader('authorization', x.token);
     xhrProducts.onload = function () {
       createProductsChart(JSON.parse(xhrProducts.responseText));
     }
@@ -107,6 +108,7 @@ export default {
     // Orders chart
     var xhrOrders = new XMLHttpRequest();
     xhrOrders.open('GET', local + '/admin/sumorders');
+    xhrOrders.setRequestHeader('authorization', x.token);
     xhrOrders.onload = function () {
       createOrdersChart(JSON.parse(xhrOrders.responseText));
     }

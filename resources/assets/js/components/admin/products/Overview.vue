@@ -47,6 +47,8 @@ export default {
       // HTTP post request
       var xhr = new XMLHttpRequest();
       xhr.open('DELETE', localDelete);
+      var x = $.cookie("user");
+      xhr.setRequestHeader('authorization', x.token);
       // Send our values
       xhr.send();
       alert("Product was deleted.");

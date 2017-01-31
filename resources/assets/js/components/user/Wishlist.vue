@@ -54,6 +54,8 @@ export default {
 
             var xhr = new XMLHttpRequest();
             xhr.open('DELETE', local + 'wishlist/' + self.user_id + '/' + id);
+            var x = $.cookie("user");
+            xhr.setRequestHeader('authorization', x.token);
             xhr.send();
             message("success", "The product has been removed from your wishlist.")
             self.products = self.products.filter(item => item.product_id !== id);

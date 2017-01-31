@@ -91,6 +91,8 @@ export default {
 
                 var xhr = new XMLHttpRequest();
                 xhr.open('PUT', local + 'users/' + self.user.user_id);
+                var x = $.cookie("user");
+                xhr.setRequestHeader('authorization', x.token);
                 xhr.send(JSON.stringify(user_data));
 
                 message("success", "Your account has been updated.")
@@ -112,6 +114,8 @@ export default {
 
             var xhr = new XMLHttpRequest();
             xhr.open('PUT', local + 'wishlist/' + self.user.user_id);
+            var x = $.cookie("user");
+            xhr.setRequestHeader('authorization', x.token);
             xhr.send(JSON.stringify(user_data));
 
             message("success", "Your settings has been updated.")
