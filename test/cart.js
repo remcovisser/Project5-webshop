@@ -2,11 +2,6 @@
 var test = require('unit.js');
 var clone = require('clone');
 
-var Vue = require('vue');
-var component = require('../resources/assets/js/components/user/Cart.vue');
-console.log(component);
-
-
 describe('Unit tests', () => {
     // ------- Generate fake cart -------
     var fakeCart = []
