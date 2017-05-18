@@ -37,11 +37,12 @@
                 <td>${{ orderline.product_price }}</td>
               </tr>
             </table>
+          </table>
           </div>
         </div>
 
       </div>
-    </div>
+    
     </div>
   </div>
 </template>
